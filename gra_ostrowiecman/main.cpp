@@ -85,7 +85,7 @@ int main() {
 
    //DRZEWO
     sf::Texture drzewo_;
-           if(!drzewo_.loadFromFile("C:/Users/bszal/OneDrive/Pulpit/PP/2/psio/projekt/ostrowiecman/grafika/wood.png")){
+           if(!drzewo_.loadFromFile("wood.png")){
                std::cerr << "Could not load texture" << std::endl;
            }
     std::vector<Drzwo> drzewo;
@@ -105,7 +105,7 @@ int main() {
 
     //GALEZIE
     sf::Texture branch_;
-           if(!branch_.loadFromFile("C:/Users/bszal/OneDrive/Pulpit/PP/2/psio/projekt/ostrowiecman/grafika/branch.png")){
+           if(!branch_.loadFromFile("branch.png")){
                std::cerr << "Could not load texture" << std::endl;
            }
     std::vector<Drzwo> branch;
@@ -126,9 +126,14 @@ int main() {
 
     //DRWAL
     sf::Texture drwal_;
-           if(!drwal_.loadFromFile("C:/Users/bszal/OneDrive/Pulpit/PP/2/psio/projekt/ostrowiecman/grafika/drwaldick.png")){
+           if(!drwal_.loadFromFile("drwaldick.png")){
                std::cerr << "Could not load texture" << std::endl;
            }
+           sf::Texture drwal_1;
+                  if(!drwal_1.loadFromFile("drwaldick1.png")){
+                      std::cerr << "Could not load texture" << std::endl;
+                  }
+
     std::vector<Drwal> drwal;
     for (int i=0; i<2; i++) {
         drwal.emplace_back();
@@ -281,6 +286,19 @@ int main() {
                 }
             }
 
+            //ZMIANA TEKSTURY PRZY UDERZENIU DRWALA
+
+            if (event.type == sf::Event::KeyPressed)
+                        {
+                            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                            {
+                                drwal[0].setTexture(drwal_1);
+                            }
+                            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+                            {
+                                drwal[1].setTexture(drwal_1);
+                            }
+                        }
 
                     //STEROWANIE
                     if (event.type == sf::Event::KeyReleased)
@@ -289,6 +307,7 @@ int main() {
                         {
                         if (event.key.code == sf::Keyboard::Left)
                         {
+                            drwal[0].setTexture(drwal_);
                             drwal[0].UderzenieLeft(drzewo);
                             branch[np].UstawGalaz(drzewo);
                             if(np==10)
@@ -327,6 +346,7 @@ int main() {
                         }
                         if (event.key.code == sf::Keyboard::Right)
                         {
+                            drwal[0].setTexture(drwal_);
                             drwal[0].UderzenieRight(drzewo);
                             branch[np].UstawGalaz(drzewo);
                             if(np==10)
@@ -369,6 +389,7 @@ int main() {
                         {
                         if (event.key.code == sf::Keyboard::A)
                         {
+                            drwal[1].setTexture(drwal_);
                             drwal[1].UderzenieA(drzewo2);
                             branch2[np].UstawGalaz(drzewo2);
                             if(np==10)
@@ -406,6 +427,7 @@ int main() {
                         }
                         if (event.key.code == sf::Keyboard::D)
                         {
+                            drwal[1].setTexture(drwal_);
                             drwal[1].UderzenieD(drzewo2);
                             branch2[np].UstawGalaz(drzewo2);
                             if(np==10)
