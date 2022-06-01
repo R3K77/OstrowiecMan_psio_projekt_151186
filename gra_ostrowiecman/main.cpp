@@ -1,13 +1,71 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <button.h>
 #include <drzwo.h>
 #include <drwal.h>
+#include <pasekstanu.h>
 #include <iostream>
 #include <vector>
 
 
+
 int main() {
+    bool gra=false;
+    bool gra2=false;
+    double elapsed;
+    double elapsed2;
+    pasekstanu paseczek;
+    pasekstanu paseczek2;
+    pasekstanu paseczekuuu;
+    pasekstanu paseczekuuu2;
+
+
+    //MUZYKA
+
+    sf::SoundBuffer buffer;
+        if (!buffer.loadFromFile("uderzenie5.wav")){
+            std::cerr << "Could not load texture" << std::endl;
+        }
+        sf::SoundBuffer buffer_;
+            if (!buffer_.loadFromFile("uderzenie6.wav")){
+                std::cerr << "Could not load texture" << std::endl;
+            }
+
+        sf::SoundBuffer buffer1;
+            if (!buffer1.loadFromFile("klik.wav")){
+                std::cerr << "Could not load texture" << std::endl;
+            }
+            sf::SoundBuffer buffer2;
+                if (!buffer2.loadFromFile("niepukaj.wav")){
+                    std::cerr << "Could not load texture" << std::endl;
+                }
+                sf::SoundBuffer buffer3;
+                    if (!buffer3.loadFromFile("smierc.wav")){
+                        std::cerr << "Could not load texture" << std::endl;
+                    }
+
+
+        // load something into the sound buffer...
+
+        sf::Sound uderzenie;
+        uderzenie.setBuffer(buffer);
+        sf::Sound uderzenie2;
+        uderzenie2.setBuffer(buffer_);
+        sf::Sound niepukaj;
+        niepukaj.setBuffer(buffer2);
+
+        sf::Sound klikniecie;
+        klikniecie.setBuffer(buffer1);
+
+        sf::Sound smierc;
+        smierc.setBuffer(buffer3);
+
+
+
+
+
+
     //CZCIONKA
     sf::Font font;
     if (!font.loadFromFile("BAHNSCHRIFT.TTF"))
@@ -144,11 +202,13 @@ int main() {
 
     //PASEK STANU (ODLICZANIE CZASU)
     sf::Clock timer;
-    std::vector<sf::RectangleShape> pasek_stanu;
+    sf::Clock timer2;
+    std::vector<pasekstanu> pasek_stanu;
     for (int i=0; i<2; i++) {
         pasek_stanu.emplace_back();
-        pasek_stanu[i].setFillColor(sf::Color::Red);
+        pasek_stanu[i].setFillColor(sf::Color::Black);
         pasek_stanu[i].setPosition(500,500);
+        pasek_stanu[i].setSize(sf::Vector2f(0,0));
     }
 
     //TEXT NA PRZEGRANA:
@@ -164,9 +224,14 @@ int main() {
 
 
 
-    sf::Clock clock;
     // run the program as long as the window is open
     while (window.isOpen()) {
+
+        //PASKI STANU NA GORZE:
+        elapsed+=timer.restart().asMicroseconds();
+        elapsed2+=timer2.restart().asMicroseconds();
+
+
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -184,7 +249,9 @@ int main() {
                 if(single.is_within(mouse_pos,single_bound)==true)
                 {
                     //GIERKA SINGLEPLAYER
+                    klikniecie.play();
                     drwal[0].score=0;
+                    pasek_stanu[0].delta=1.2;
                         std::cout << "single" << std::endl;
                         logo.Znikaj();
                         single.Znikaj();
@@ -199,7 +266,10 @@ int main() {
                 }
                 else if(multi.is_within(mouse_pos,multi_bound)==true)
                 {
+                    klikniecie.play();
                     //GIERKA MULTIPLAYER
+                    pasek_stanu[0].delta=1.2;
+                    pasek_stanu[1].delta=1.2;
                         std::cout << "multi" << std::endl;
                         logo.Znikaj();
                         single.Znikaj();
@@ -216,6 +286,7 @@ int main() {
                 }
                 else if(end[0].is_within(mouse_pos,end0_bound)==true)
                 {
+                    klikniecie.play();
                     for (int i=0; i<2; i++) {
                         drwal[i].setPosition(3000,720);
                     }
@@ -251,6 +322,7 @@ int main() {
                 }
                 else if(end[1].is_within(mouse_pos,end1_bound)==true)
                 {
+                    klikniecie.play();
                     for (int i=0; i<2; i++) {
                         drwal[i].setPosition(3000,720);
                     }
@@ -292,11 +364,15 @@ int main() {
                         {
                             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
                             {
-                                drwal[0].setTexture(drwal_1);
+                                if (drwal[0].getGlobalBounds().left<window.getSize().x){
+                                    drwal[0].setTexture(drwal_1);
+                                }
                             }
                             if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
                             {
-                                drwal[1].setTexture(drwal_1);
+                                if (drwal[1].getGlobalBounds().left<window.getSize().x){
+                                     drwal[1].setTexture(drwal_1);
+                                }
                             }
                         }
 
@@ -307,6 +383,25 @@ int main() {
                         {
                         if (event.key.code == sf::Keyboard::Left)
                         {
+
+                            int r=rand()%21;
+                            if (r==1)
+                            {
+                                niepukaj.play();
+                            }
+                            else
+                            {
+                                uderzenie.play();
+                            }
+
+                            //pasek
+                            gra = true;
+                            elapsed=0;
+                            if (pasek_stanu[0].delta<=6)
+                            {
+                                pasek_stanu[0].delta=pasek_stanu[0].delta+0.01;
+                            }
+                            //uderzenia i resp galezi
                             drwal[0].setTexture(drwal_);
                             drwal[0].UderzenieLeft(drzewo);
                             branch[np].UstawGalaz(drzewo);
@@ -323,6 +418,11 @@ int main() {
                             {
                                 if(it.getGlobalBounds().intersects(drwal[0].getGlobalBounds()))
                                 {
+                                    smierc.play();
+                                    gra = false; //koniec paska
+                                    pasek_stanu[0].setSize(sf::Vector2f(0,0));      //koniec paska
+                                    paseczek.setSize(sf::Vector2f(0,0));
+                                    paseczekuuu.setSize(sf::Vector2f(0,0));
                                     drwal[0].bestscore=drwal[0].score;
                                     std::cout << "kolizja xD" << std::endl;
                                     end[0].setPosition(drwal[0].getGlobalBounds().left+80, drwal[0].getGlobalBounds().top+20);
@@ -346,6 +446,24 @@ int main() {
                         }
                         if (event.key.code == sf::Keyboard::Right)
                         {
+                            int r=rand()%21;
+                            if (r==1)
+                            {
+                                niepukaj.play();
+                            }
+                            else
+                            {
+                                uderzenie.play();
+                            }
+
+                            //pasek
+                            gra = true;
+                            elapsed=0;
+                            if (pasek_stanu[0].delta<=6)
+                            {
+                                pasek_stanu[0].delta=pasek_stanu[0].delta+0.01;
+                            }
+                            //uderzenia i resp galezi
                             drwal[0].setTexture(drwal_);
                             drwal[0].UderzenieRight(drzewo);
                             branch[np].UstawGalaz(drzewo);
@@ -362,6 +480,11 @@ int main() {
                             {
                                 if(it.getGlobalBounds().intersects(drwal[0].getGlobalBounds()))
                                 {
+                                    smierc.play();
+                                    gra = false;        //koniec paska
+                                    pasek_stanu[0].setSize(sf::Vector2f(0,0));  //koniec paska
+                                    paseczek.setSize(sf::Vector2f(0,0));
+                                    paseczekuuu.setSize(sf::Vector2f(0,0));
                                     drwal[0].bestscore=drwal[0].score;
                                     std::cout << "kolizja xD, wygrales: "<< drwal[0].bestscore << std::endl;
                                     end[0].setPosition(drwal[0].getGlobalBounds().left+80, drwal[0].getGlobalBounds().top+20);
@@ -389,6 +512,23 @@ int main() {
                         {
                         if (event.key.code == sf::Keyboard::A)
                         {
+                            int r=rand()%21;
+                            if (r==1)
+                            {
+                                niepukaj.play();
+                            }
+                            else
+                            {
+                                uderzenie2.play();
+                            }
+                            //pasek
+                            gra2 = true;
+                            elapsed2=0;
+                            if (pasek_stanu[1].delta<=6)
+                            {
+                                pasek_stanu[1].delta=pasek_stanu[1].delta+0.01;
+                            }
+                            //uderzenia i resp galezi
                             drwal[1].setTexture(drwal_);
                             drwal[1].UderzenieA(drzewo2);
                             branch2[np].UstawGalaz(drzewo2);
@@ -405,6 +545,11 @@ int main() {
                             {
                                 if(it.getGlobalBounds().intersects(drwal[1].getGlobalBounds()))
                                 {
+                                    smierc.play();
+                                    gra2=false;     //koniec paska
+                                    pasek_stanu[1].setSize(sf::Vector2f(0,0));      //koniec paska
+                                    paseczek2.setSize(sf::Vector2f(0,0));
+                                    paseczekuuu2.setSize(sf::Vector2f(0,0));
                                     drwal[1].bestscore=drwal[1].score;
                                     std::cout << "kolizja xD, wygrales: "<< drwal[1].bestscore << std::endl;
                                     end[1].setPosition(drwal[1].getGlobalBounds().left+80, drwal[1].getGlobalBounds().top+20);
@@ -427,6 +572,23 @@ int main() {
                         }
                         if (event.key.code == sf::Keyboard::D)
                         {
+                            int r=rand()%21;
+                            if (r==1)
+                            {
+                                niepukaj.play();
+                            }
+                            else
+                            {
+                                uderzenie2.play();
+                            }
+                            //pasek
+                            gra2 = true;
+                            elapsed2=0;
+                            if (pasek_stanu[1].delta<=6)
+                            {
+                                pasek_stanu[1].delta=pasek_stanu[1].delta+0.01;
+                            }
+                            //uderzenia i resp galezi
                             drwal[1].setTexture(drwal_);
                             drwal[1].UderzenieD(drzewo2);
                             branch2[np].UstawGalaz(drzewo2);
@@ -443,6 +605,11 @@ int main() {
                             {
                                 if(it.getGlobalBounds().intersects(drwal[1].getGlobalBounds()))
                                 {
+                                    smierc.play();
+                                    gra2=false; //koniec paska
+                                    pasek_stanu[1].setSize(sf::Vector2f(0,0));  //koniec paska
+                                    paseczek2.setSize(sf::Vector2f(0,0));
+                                    paseczekuuu2.setSize(sf::Vector2f(0,0));
                                     drwal[1].bestscore=drwal[1].score;
                                     std::cout << "kolizja xD, wygrales: "<< drwal[1].bestscore << std::endl;
                                     end[1].setPosition(drwal[1].getGlobalBounds().left+80, drwal[1].getGlobalBounds().top+20);
@@ -458,6 +625,7 @@ int main() {
                                     text[3].setString("TWOJ WYNIK TO:");
                                     text[3].setPosition(drzewo2[0].getGlobalBounds().left+5,
                                                                     drzewo2[0].getGlobalBounds().top-140);
+
                                 }
                             }
                             drwal[1].score=drwal[1].score+1;
@@ -468,11 +636,106 @@ int main() {
 
 
         }
-        /*sf::Time elapsed=clock.getElapsedTime();
-                std::cout<<elapsed.asSeconds()<<std::endl*/;
 
 
-        //sf::Time time = clock.restart();
+        //ZABAWA Z PASKIEM STANU, TEN OD CZASU :(((
+
+        if (gra==true)
+        {
+            paseczek.setSize(sf::Vector2f(206,26));
+            paseczek.setFillColor(sf::Color::Black);
+            paseczek.setPosition(drzewo[0].getGlobalBounds().left+drzewo[0].getGlobalBounds().width+17-200,7);
+            paseczekuuu.setSize(sf::Vector2f(200,20));
+            paseczekuuu.setFillColor(sf::Color::Red);
+            paseczekuuu.setPosition(drzewo[0].getGlobalBounds().left+drzewo[0].getGlobalBounds().width+20-200,10);
+            pasek_stanu[0].setPosition(drzewo[0].getGlobalBounds().left+drzewo[0].getGlobalBounds().width+20,10);
+            if(pasek_stanu[0].getGlobalBounds().width<=200)
+                    {
+                        pasek_stanu[0].setSize(sf::Vector2f(-elapsed*pasek_stanu[0].delta/10000, 20));
+                        text[0].setCharacterSize(50);
+                        text[0].setString(std::to_string(drwal[0].score));
+                        text[0].setPosition(window.getSize().x-text[0].getGlobalBounds().width-10,
+                                                        window.getSize().y-text[0].getGlobalBounds().height-20);
+                        text[1].setScale(1,1);
+                        text[1].setString("TWOJ WYNIK TO:");
+                        text[1].setPosition(window.getSize().x-text[1].getGlobalBounds().width-10,
+                                                        window.getSize().y-100);
+                    }
+                    else    //koniec gry
+                    {
+                smierc.play();
+                        gra = false; //koniec paska
+                        pasek_stanu[0].setSize(sf::Vector2f(0,0));      //koniec paska
+                        drwal[0].bestscore=drwal[0].score;
+                        std::cout << "kolizja xD" << std::endl;
+                        end[0].setPosition(drwal[0].getGlobalBounds().left+80, drwal[0].getGlobalBounds().top+20);
+                        drwal[0].setPosition(2000,2000);
+                        end_button[0].setPosition(drzewo[0].getGlobalBounds().left-60, drzewo[0].getGlobalBounds().top-300);
+                         drwal[0].score=0;
+                         drwal[0].setScale(0.5,0.5);
+                         text[0].setCharacterSize(50);
+                         text[0].setString(std::to_string(drwal[0].bestscore));
+                         text[0].setPosition(drzewo[0].getGlobalBounds().left+40,
+                                                         drzewo[0].getGlobalBounds().top-100);
+                         text[1].setScale(0.6,0.6);
+                         text[1].setString("TWOJ WYNIK TO:");
+                         text[1].setPosition(drzewo[0].getGlobalBounds().left+5,
+                                                         drzewo[0].getGlobalBounds().top-140);
+                         paseczekuuu.setSize(sf::Vector2f(0,0));
+                         paseczek.setSize(sf::Vector2f(0,0));
+                    }
+        }
+        if (gra2==true)
+        {
+            paseczek2.setSize(sf::Vector2f(206,26));
+            paseczek2.setFillColor(sf::Color::Black);
+            paseczek2.setPosition(drzewo2[0].getGlobalBounds().left+drzewo2[0].getGlobalBounds().width+17-200,7);
+            paseczekuuu2.setSize(sf::Vector2f(200,20));
+            paseczekuuu2.setFillColor(sf::Color::Red);
+            paseczekuuu2.setPosition(drzewo2[0].getGlobalBounds().left+drzewo2[0].getGlobalBounds().width+20-200,10);
+            pasek_stanu[1].setPosition(drzewo2[0].getGlobalBounds().left+drzewo2[0].getGlobalBounds().width+20,10);
+
+            if(pasek_stanu[1].getGlobalBounds().width<=200)
+                    {
+                        pasek_stanu[1].setSize(sf::Vector2f(-elapsed2*pasek_stanu[1].delta/10000, 20));
+                        text[2].setCharacterSize(50);
+                        text[2].setString(std::to_string(drwal[1].score));
+                        text[2].setPosition(10,
+                                                        window.getSize().y-text[2].getGlobalBounds().height-20);
+                        text[3].setScale(1,1);
+                        text[3].setString("TWOJ WYNIK TO:");
+                        text[3].setPosition(10,
+                                                        window.getSize().y-100);
+
+                    }
+                    else    //koniec gry
+                    {
+                smierc.play();
+                        gra2=false;     //koniec paska
+                        pasek_stanu[1].setSize(sf::Vector2f(0,0));      //koniec paska
+                        paseczek2.setSize(sf::Vector2f(0,0));
+                        paseczekuuu2.setSize(sf::Vector2f(0,0));
+                        drwal[1].bestscore=drwal[1].score;
+                        std::cout << "kolizja xD, wygrales: "<< drwal[1].bestscore << std::endl;
+                        end[1].setPosition(drwal[1].getGlobalBounds().left+80, drwal[1].getGlobalBounds().top+20);
+                        drwal[1].setPosition(2000,2000);
+                        end_button[1].setPosition(drzewo2[0].getGlobalBounds().left-60, drzewo2[0].getGlobalBounds().top-300);
+                        drwal[1].score=0;
+                        drwal[1].setScale(0.5,0.5);
+                        text[2].setCharacterSize(50);
+                        text[2].setString(std::to_string(drwal[1].bestscore));
+                        text[2].setPosition(drzewo2[0].getGlobalBounds().left+40,
+                                                        drzewo2[0].getGlobalBounds().top-100);
+                        text[3].setScale(0.6,0.6);
+                        text[3].setString("TWOJ WYNIK TO:");
+                        text[3].setPosition(drzewo2[0].getGlobalBounds().left+5,
+                                                        drzewo2[0].getGlobalBounds().top-140);
+                    }
+        }
+
+
+
+
 
         // clear the window with black color, zamalowujemy; zostawia czarne okno
         window.clear(sf::Color::Black);
@@ -505,6 +768,10 @@ int main() {
         for (auto &it : drwal) {
             window.draw(it);
         }
+        window.draw(paseczek);
+        window.draw(paseczek2);
+        window.draw(paseczekuuu);
+        window.draw(paseczekuuu2);
         for (auto &it : pasek_stanu){
             window.draw(it);
         }

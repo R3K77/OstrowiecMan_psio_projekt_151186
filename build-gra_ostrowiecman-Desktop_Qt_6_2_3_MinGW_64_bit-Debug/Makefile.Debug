@@ -507,7 +507,8 @@ debug/main.o: ../gra_ostrowiecman/main.cpp C:/SFML-2.5.1/include/SFML/Window.hpp
 		../gra_ostrowiecman/button.h \
 		../gra_ostrowiecman/labelki.h \
 		../gra_ostrowiecman/drzwo.h \
-		../gra_ostrowiecman/drwal.h
+		../gra_ostrowiecman/drwal.h \
+		../gra_ostrowiecman/pasekstanu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\gra_ostrowiecman\main.cpp
 
 debug/pasekstanu.o: ../gra_ostrowiecman/pasekstanu.cpp ../gra_ostrowiecman/pasekstanu.h \
