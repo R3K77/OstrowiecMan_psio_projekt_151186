@@ -21,4 +21,20 @@ bool Button::is_within(sf::Vector2i pos, sf::FloatRect bound)
     return false;
 };
 
+void Button::rysuj(int i, int j)
+{
+    if (j==1)
+    {
+        setPosition(850+50,70+200*i);
+    }
+    else if(j==2)
+    {
+        setPosition(850+250,70+200*i);
+    }
+    else
+    {
+        setPosition(2000,2000);
+    }
+}
+
 

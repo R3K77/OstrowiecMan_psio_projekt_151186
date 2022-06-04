@@ -9,7 +9,7 @@ class Button :public Labelki
 public:
     Button();
     bool is_within(sf::Vector2i pos, sf::FloatRect rec_bound);
-
+    void rysuj(int i, int j);
 
 };
 

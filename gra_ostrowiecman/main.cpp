@@ -7,18 +7,21 @@
 #include <pasekstanu.h>
 #include <iostream>
 #include <vector>
+#include "settings.h"
 
 
 
 int main() {
     bool gra=false;
     bool gra2=false;
+    bool ustawienia = false;
     double elapsed;
     double elapsed2;
     pasekstanu paseczek;
     pasekstanu paseczek2;
     pasekstanu paseczekuuu;
     pasekstanu paseczekuuu2;
+    Labelki background;
 
 
     //MUZYKA
@@ -80,14 +83,46 @@ int main() {
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);
 
+
+
+
+    //TEKSTURY DO USTAWIEN
+            sf::Texture ustawieniaa;
+                    if(!ustawieniaa.loadFromFile("ustawienia.png")){
+                        std::cerr << "Could not load texture" << std::endl;
+                    }
+                     background.setTexture(ustawieniaa);
+                    background.setPosition(2000,2000);
+
+        std::vector<sf::Text> SettingsText;
+        for (int i=0; i<4; i++) {
+            SettingsText.emplace_back();
+            SettingsText[i].setFont(font);
+            SettingsText[i].setFillColor(sf::Color::White);
+            SettingsText[i].setCharacterSize(25);
+            SettingsText[i].setPosition(2000,2000);
+        }
+        SettingsText[0].setString("TLO:");
+        SettingsText[1].setString("DRWAL:");
+        SettingsText[2].setString("PIEN:");
+        SettingsText[3].setString("GALAZ:");
+
+
+
     //TLO
+    sf::Texture skyy2;
+            if(!skyy2.loadFromFile("sky2.png")){
+                std::cerr << "Could not load texture" << std::endl;
+                }
     sf::Texture skyy;
             if(!skyy.loadFromFile("sky.png")){
                 std::cerr << "Could not load texture" << std::endl;
             }
     sf::Sprite sky;
-    sky.setTexture(skyy);
+    sky.setTexture(skyy2);
     sky.scale(double(window.getSize().x)/skyy.getSize().x,double(window.getSize().y)/skyy.getSize().y);
+
+
 
     //LOGO
    Button logo;
@@ -187,15 +222,27 @@ int main() {
            if(!drwal_.loadFromFile("drwaldick.png")){
                std::cerr << "Could not load texture" << std::endl;
            }
-           sf::Texture drwal_1;
+    sf::Texture drwal_1;
                   if(!drwal_1.loadFromFile("drwaldick1.png")){
                       std::cerr << "Could not load texture" << std::endl;
                   }
+                  sf::Texture drwal2_;
+                         if(!drwal2_.loadFromFile("drwalkuba.png")){
+                             std::cerr << "Could not load texture" << std::endl;
+                         }
+                  sf::Texture drwal2_1;
+                                if(!drwal2_1.loadFromFile("drwalkuba2.png")){
+                                    std::cerr << "Could not load texture" << std::endl;
+                                }
+
+sf::Texture drwal_lewo=drwal_;
+sf::Texture drwal_prawo=drwal_1;
+
 
     std::vector<Drwal> drwal;
     for (int i=0; i<2; i++) {
         drwal.emplace_back();
-        drwal[i].setTexture(drwal_);
+        drwal[i].setTexture(drwal_lewo);
         drwal[i].setPosition(3000,720);
         drwal[i].setScale(0.5,0.5);
     }
@@ -221,6 +268,31 @@ int main() {
         text[i].setPosition(2000,2000);
         text[i].setString("TWOJ WYNIK TO:");
     }
+
+    //SETTINGS
+    Button settings_tlo;
+    settings_tlo.setTexture(skyy);
+    settings_tlo.setScale(0.07,0.07);
+    settings_tlo.setPosition(2000,2000);
+    Button settings_tlo2;
+    settings_tlo2.setTexture(skyy2);
+    settings_tlo2.setScale(0.07,0.07);
+    settings_tlo2.setPosition(2000,2000);
+    Button settings_drwal;
+    settings_drwal.setTexture(drwal_);
+    settings_drwal.setScale(0.3,0.3);
+    settings_drwal.setPosition(2000,2000);
+    Button settings_drwal2;
+    settings_drwal2.setTexture(drwal2_);
+    settings_drwal2.setScale(0.3,0.3);
+    settings_drwal2.setPosition(2000,2000);
+
+
+
+
+
+
+
 
 
 
@@ -250,9 +322,14 @@ int main() {
                 {
                     //GIERKA SINGLEPLAYER
                     klikniecie.play();
+                    background.setPosition(2000,2000);
+                    ustawienia = false;
+                    settings_tlo.Znikaj();
+                    settings_tlo2.Znikaj();
+                    settings_drwal.Znikaj();
+                    settings_drwal2.Znikaj();
                     drwal[0].score=0;
                     pasek_stanu[0].delta=1.2;
-                        std::cout << "single" << std::endl;
                         logo.Znikaj();
                         single.Znikaj();
                         multi.Znikaj();
@@ -268,9 +345,14 @@ int main() {
                 {
                     klikniecie.play();
                     //GIERKA MULTIPLAYER
+                    background.setPosition(2000,2000);
+                    ustawienia = false;
+                    settings_tlo.Znikaj();
+                    settings_tlo2.Znikaj();
+                    settings_drwal.Znikaj();
+                    settings_drwal2.Znikaj();
                     pasek_stanu[0].delta=1.2;
                     pasek_stanu[1].delta=1.2;
-                        std::cout << "multi" << std::endl;
                         logo.Znikaj();
                         single.Znikaj();
                         multi.Znikaj();
@@ -311,8 +393,8 @@ int main() {
                     logo.setPosition(window.getSize().x/2-logo.getGlobalBounds().width/2,-50);
                     text[0].setPosition(2000,2000);
                     text[1].setPosition(2000,2000);
+                    text[2].setPosition(2000,2000);
                     text[3].setPosition(2000,2000);
-                    text[4].setPosition(2000,2000);
                     end[0].setPosition(3000,3000);
                     end_button[0].setPosition(3000,3000);
                     end[1].setPosition(3000,3000);
@@ -356,7 +438,30 @@ int main() {
                     drwal[0].setScale(0.5,0.5);
                     drwal[1].setScale(0.5,0.5);
                 }
+                else if(settings_tlo.is_within(sf::Mouse::getPosition(window),settings_tlo.getGlobalBounds())==true){
+                    sky.setTexture(skyy);
+                }
+                else if(settings_tlo2.is_within(sf::Mouse::getPosition(window),settings_tlo2.getGlobalBounds())==true){
+                    sky.setTexture(skyy2);
+                }
+                else if(settings_drwal.is_within(sf::Mouse::getPosition(window),settings_drwal.getGlobalBounds())==true){
+                    for (auto &it : drwal)
+                    {
+                        drwal_lewo=drwal_;
+                        drwal_prawo=drwal_1;
+                        it.setTexture(drwal_);
+                    }
+                }
+                else if(settings_drwal2.is_within(sf::Mouse::getPosition(window),settings_drwal2.getGlobalBounds())==true){
+                    for (auto &it : drwal)
+                    {
+                        drwal_lewo=drwal2_;
+                        drwal_prawo=drwal2_1;
+                        it.setTexture(drwal2_);
+                    }
+                }
             }
+
 
             //ZMIANA TEKSTURY PRZY UDERZENIU DRWALA
 
@@ -365,13 +470,13 @@ int main() {
                             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
                             {
                                 if (drwal[0].getGlobalBounds().left<window.getSize().x){
-                                    drwal[0].setTexture(drwal_1);
+                                    drwal[0].setTexture(drwal_prawo);
                                 }
                             }
                             if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
                             {
                                 if (drwal[1].getGlobalBounds().left<window.getSize().x){
-                                     drwal[1].setTexture(drwal_1);
+                                     drwal[1].setTexture(drwal_prawo);
                                 }
                             }
                         }
@@ -384,7 +489,7 @@ int main() {
                         if (event.key.code == sf::Keyboard::Left)
                         {
 
-                            int r=rand()%21;
+                            int r=rand()%41;
                             if (r==1)
                             {
                                 niepukaj.play();
@@ -402,7 +507,7 @@ int main() {
                                 pasek_stanu[0].delta=pasek_stanu[0].delta+0.01;
                             }
                             //uderzenia i resp galezi
-                            drwal[0].setTexture(drwal_);
+                            drwal[0].setTexture(drwal_lewo);
                             drwal[0].UderzenieLeft(drzewo);
                             branch[np].UstawGalaz(drzewo);
                             if(np==10)
@@ -424,7 +529,6 @@ int main() {
                                     paseczek.setSize(sf::Vector2f(0,0));
                                     paseczekuuu.setSize(sf::Vector2f(0,0));
                                     drwal[0].bestscore=drwal[0].score;
-                                    std::cout << "kolizja xD" << std::endl;
                                     end[0].setPosition(drwal[0].getGlobalBounds().left+80, drwal[0].getGlobalBounds().top+20);
                                     drwal[0].setPosition(2000,2000);
                                     end_button[0].setPosition(drzewo[0].getGlobalBounds().left-60, drzewo[0].getGlobalBounds().top-300);
@@ -442,11 +546,10 @@ int main() {
                             }
 
                             drwal[0].score=drwal[0].score+1;
-                            std::cout << drwal[0].score << std::endl;
                         }
                         if (event.key.code == sf::Keyboard::Right)
                         {
-                            int r=rand()%21;
+                            int r=rand()%41;
                             if (r==1)
                             {
                                 niepukaj.play();
@@ -464,7 +567,7 @@ int main() {
                                 pasek_stanu[0].delta=pasek_stanu[0].delta+0.01;
                             }
                             //uderzenia i resp galezi
-                            drwal[0].setTexture(drwal_);
+                            drwal[0].setTexture(drwal_lewo);
                             drwal[0].UderzenieRight(drzewo);
                             branch[np].UstawGalaz(drzewo);
                             if(np==10)
@@ -486,7 +589,6 @@ int main() {
                                     paseczek.setSize(sf::Vector2f(0,0));
                                     paseczekuuu.setSize(sf::Vector2f(0,0));
                                     drwal[0].bestscore=drwal[0].score;
-                                    std::cout << "kolizja xD, wygrales: "<< drwal[0].bestscore << std::endl;
                                     end[0].setPosition(drwal[0].getGlobalBounds().left+80, drwal[0].getGlobalBounds().top+20);
                                     drwal[0].setPosition(2000,2000);
                                     end_button[0].setPosition(drzewo[0].getGlobalBounds().left-60, drzewo[0].getGlobalBounds().top-300);
@@ -503,7 +605,6 @@ int main() {
                                 }
                             }
                             drwal[0].score=drwal[0].score+1;
-                            std::cout << drwal[0].score << std::endl;
 
                         }
                         }
@@ -529,7 +630,7 @@ int main() {
                                 pasek_stanu[1].delta=pasek_stanu[1].delta+0.01;
                             }
                             //uderzenia i resp galezi
-                            drwal[1].setTexture(drwal_);
+                            drwal[1].setTexture(drwal_lewo);
                             drwal[1].UderzenieA(drzewo2);
                             branch2[np].UstawGalaz(drzewo2);
                             if(np==10)
@@ -551,7 +652,6 @@ int main() {
                                     paseczek2.setSize(sf::Vector2f(0,0));
                                     paseczekuuu2.setSize(sf::Vector2f(0,0));
                                     drwal[1].bestscore=drwal[1].score;
-                                    std::cout << "kolizja xD, wygrales: "<< drwal[1].bestscore << std::endl;
                                     end[1].setPosition(drwal[1].getGlobalBounds().left+80, drwal[1].getGlobalBounds().top+20);
                                     drwal[1].setPosition(2000,2000);
                                     end_button[1].setPosition(drzewo2[0].getGlobalBounds().left-60, drzewo2[0].getGlobalBounds().top-300);
@@ -568,7 +668,6 @@ int main() {
                                 }
                             }
                             drwal[1].score=drwal[1].score+1;
-                            std::cout << drwal[1].score << std::endl;
                         }
                         if (event.key.code == sf::Keyboard::D)
                         {
@@ -589,7 +688,7 @@ int main() {
                                 pasek_stanu[1].delta=pasek_stanu[1].delta+0.01;
                             }
                             //uderzenia i resp galezi
-                            drwal[1].setTexture(drwal_);
+                            drwal[1].setTexture(drwal_lewo);
                             drwal[1].UderzenieD(drzewo2);
                             branch2[np].UstawGalaz(drzewo2);
                             if(np==10)
@@ -611,7 +710,6 @@ int main() {
                                     paseczek2.setSize(sf::Vector2f(0,0));
                                     paseczekuuu2.setSize(sf::Vector2f(0,0));
                                     drwal[1].bestscore=drwal[1].score;
-                                    std::cout << "kolizja xD, wygrales: "<< drwal[1].bestscore << std::endl;
                                     end[1].setPosition(drwal[1].getGlobalBounds().left+80, drwal[1].getGlobalBounds().top+20);
                                     drwal[1].setPosition(2000,2000);
                                     end_button[1].setPosition(drzewo2[0].getGlobalBounds().left-60, drzewo2[0].getGlobalBounds().top-300);
@@ -629,9 +727,38 @@ int main() {
                                 }
                             }
                             drwal[1].score=drwal[1].score+1;
-                            std::cout << drwal[1].score << std::endl;
                         }
                         }
+                        if (logo.getGlobalBounds().left<1200)
+                    {
+                        if (event.key.code == sf::Keyboard::Escape)
+                        {
+                            if (ustawienia==false)
+                            {
+                                background.setPosition(850,0);
+                                ustawienia = true;
+                                settings_tlo.rysuj(0,1);
+                                settings_tlo2.rysuj(0,2);
+                                settings_drwal.rysuj(1,1);
+                                settings_drwal2.rysuj(1,2);
+
+                            }
+                            else
+                            {
+                                background.setPosition(2000,2000);
+                                ustawienia = false;
+                                settings_tlo.Znikaj();
+                                settings_tlo2.Znikaj();
+                                settings_drwal.Znikaj();
+                                settings_drwal2.Znikaj();
+                            }
+                        }
+                        }
+
+
+
+
+
                     }
 
 
@@ -667,7 +794,6 @@ int main() {
                         gra = false; //koniec paska
                         pasek_stanu[0].setSize(sf::Vector2f(0,0));      //koniec paska
                         drwal[0].bestscore=drwal[0].score;
-                        std::cout << "kolizja xD" << std::endl;
                         end[0].setPosition(drwal[0].getGlobalBounds().left+80, drwal[0].getGlobalBounds().top+20);
                         drwal[0].setPosition(2000,2000);
                         end_button[0].setPosition(drzewo[0].getGlobalBounds().left-60, drzewo[0].getGlobalBounds().top-300);
@@ -716,7 +842,6 @@ int main() {
                         paseczek2.setSize(sf::Vector2f(0,0));
                         paseczekuuu2.setSize(sf::Vector2f(0,0));
                         drwal[1].bestscore=drwal[1].score;
-                        std::cout << "kolizja xD, wygrales: "<< drwal[1].bestscore << std::endl;
                         end[1].setPosition(drwal[1].getGlobalBounds().left+80, drwal[1].getGlobalBounds().top+20);
                         drwal[1].setPosition(2000,2000);
                         end_button[1].setPosition(drzewo2[0].getGlobalBounds().left-60, drzewo2[0].getGlobalBounds().top-300);
@@ -779,6 +904,15 @@ int main() {
         {
             window.draw(it);
         }
+        window.draw(background);
+        for (auto &it : SettingsText)
+        {
+            window.draw(it);
+        }
+        window.draw(settings_tlo);
+        window.draw(settings_tlo2);
+        window.draw(settings_drwal);
+        window.draw(settings_drwal2);
 
         // end the current frame
         window.display();

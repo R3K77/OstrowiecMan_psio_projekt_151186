@@ -18,11 +18,13 @@ SOURCES += \
         drzwo.cpp \
         labelki.cpp \
         main.cpp \
-        pasekstanu.cpp
+        pasekstanu.cpp \
+        settings.cpp
 
 HEADERS += \
     button.h \
     drwal.h \
     drzwo.h \
     labelki.h \
-    pasekstanu.h
+    pasekstanu.h \
+    settings.h
