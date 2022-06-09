@@ -79,7 +79,7 @@ int main() {
     //std::vector<std::unique_ptr<sf::Drawable>> shapes;
     int np=0;
     // create the window
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Ostrowiec Man");
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Ostrowiec Man", sf::Style::Titlebar | sf::Style::Close);
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);
 
@@ -181,6 +181,10 @@ int main() {
            if(!drzewo_.loadFromFile("wood.png")){
                std::cerr << "Could not load texture" << std::endl;
            }
+           sf::Texture drzewo2_;
+                  if(!drzewo2_.loadFromFile("wood2.png")){
+                      std::cerr << "Could not load texture" << std::endl;
+                  }
     std::vector<Drzwo> drzewo;
     for (int i=0; i<6; i++) {
         drzewo.emplace_back();
@@ -286,6 +290,14 @@ sf::Texture drwal_prawo=drwal_1;
     settings_drwal2.setTexture(drwal2_);
     settings_drwal2.setScale(0.3,0.3);
     settings_drwal2.setPosition(2000,2000);
+    Button settings_drzewo;
+    settings_drzewo.setTexture(drzewo_);
+    settings_drzewo.setScale(0.1,0.1);
+    settings_drzewo.setPosition(2000,2000);
+    Button settings_drzewo2;
+    settings_drzewo2.setTexture(drzewo2_);
+    settings_drzewo2.setScale(0.1,0.1);
+    settings_drzewo2.setPosition(2000,2000);
 
 
 
@@ -328,6 +340,8 @@ sf::Texture drwal_prawo=drwal_1;
                     settings_tlo2.Znikaj();
                     settings_drwal.Znikaj();
                     settings_drwal2.Znikaj();
+                    settings_drzewo.Znikaj();
+                    settings_drzewo2.Znikaj();
                     drwal[0].score=0;
                     pasek_stanu[0].delta=1.2;
                         logo.Znikaj();
@@ -351,6 +365,8 @@ sf::Texture drwal_prawo=drwal_1;
                     settings_tlo2.Znikaj();
                     settings_drwal.Znikaj();
                     settings_drwal2.Znikaj();
+                    settings_drzewo.Znikaj();
+                    settings_drzewo2.Znikaj();
                     pasek_stanu[0].delta=1.2;
                     pasek_stanu[1].delta=1.2;
                         logo.Znikaj();
@@ -440,13 +456,16 @@ sf::Texture drwal_prawo=drwal_1;
                 }
                 else if(settings_tlo.is_within(sf::Mouse::getPosition(window),settings_tlo.getGlobalBounds())==true){
                     sky.setTexture(skyy);
+                    klikniecie.play();
                 }
                 else if(settings_tlo2.is_within(sf::Mouse::getPosition(window),settings_tlo2.getGlobalBounds())==true){
                     sky.setTexture(skyy2);
+                    klikniecie.play();
                 }
                 else if(settings_drwal.is_within(sf::Mouse::getPosition(window),settings_drwal.getGlobalBounds())==true){
                     for (auto &it : drwal)
                     {
+                        klikniecie.play();
                         drwal_lewo=drwal_;
                         drwal_prawo=drwal_1;
                         it.setTexture(drwal_);
@@ -455,9 +474,34 @@ sf::Texture drwal_prawo=drwal_1;
                 else if(settings_drwal2.is_within(sf::Mouse::getPosition(window),settings_drwal2.getGlobalBounds())==true){
                     for (auto &it : drwal)
                     {
+                        klikniecie.play();
                         drwal_lewo=drwal2_;
                         drwal_prawo=drwal2_1;
                         it.setTexture(drwal2_);
+                    }
+                }
+                else if(settings_drzewo.is_within(sf::Mouse::getPosition(window),settings_drzewo.getGlobalBounds())==true){
+                    for (auto &it : drzewo)
+                    {
+                        klikniecie.play();
+                        it.setTexture(drzewo_);
+                    }
+                    for (auto &it : drzewo2)
+                    {
+                        klikniecie.play();
+                        it.setTexture(drzewo_);
+                    }
+                }
+                else if(settings_drzewo2.is_within(sf::Mouse::getPosition(window),settings_drzewo2.getGlobalBounds())==true){
+                    for (auto &it : drzewo)
+                    {
+                        klikniecie.play();
+                        it.setTexture(drzewo2_);
+                    }
+                    for (auto &it : drzewo2)
+                    {
+                        klikniecie.play();
+                        it.setTexture(drzewo2_);
                     }
                 }
             }
@@ -741,6 +785,9 @@ sf::Texture drwal_prawo=drwal_1;
                                 settings_tlo2.rysuj(0,2);
                                 settings_drwal.rysuj(1,1);
                                 settings_drwal2.rysuj(1,2);
+                                settings_drzewo.rysuj(2,1);
+                                settings_drzewo2.rysuj(2,2);
+
 
                             }
                             else
@@ -751,6 +798,9 @@ sf::Texture drwal_prawo=drwal_1;
                                 settings_tlo2.Znikaj();
                                 settings_drwal.Znikaj();
                                 settings_drwal2.Znikaj();
+                                settings_drzewo.Znikaj();
+                                settings_drzewo2.Znikaj();
+
                             }
                         }
                         }
@@ -913,6 +963,8 @@ sf::Texture drwal_prawo=drwal_1;
         window.draw(settings_tlo2);
         window.draw(settings_drwal);
         window.draw(settings_drwal2);
+        window.draw(settings_drzewo);
+        window.draw(settings_drzewo2);
 
         // end the current frame
         window.display();

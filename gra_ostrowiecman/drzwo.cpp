@@ -33,14 +33,12 @@ void Drzwo::UstawGalaz(std::vector<Drzwo> drzewo)
 
 
         case 1:
-        setPosition(drzewo[4].getGlobalBounds().left-148.92,-90);
-
+        setPosition(drzewo[4].getGlobalBounds().left-135,-90);
             break;
 
 
         case 2:
-        setPosition(drzewo[4].getGlobalBounds().left+144,-90);
-
+        setPosition(drzewo[4].getGlobalBounds().left+130,-90);
             break;
     }
 }
