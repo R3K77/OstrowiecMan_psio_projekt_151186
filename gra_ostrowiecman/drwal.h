@@ -15,6 +15,7 @@ public:
     void UderzenieA(std::vector<Drzwo> drzewo);
     void UderzenieD(std::vector<Drzwo> drzewo);
     void Kolizja(std::vector<Drzwo> galaz, std::vector<Drwal> drwal);
+    int DodajPunkt();
 };
 
 #endif // DRWAL_H

@@ -42,8 +42,11 @@ void Drwal::UderzenieD(std::vector<Drzwo> drzewo)
         setPosition(drzewo[0].getGlobalBounds().left+drzewo[0].getGlobalBounds().width+202.5,720-300);
     }
 
-
-
+int Drwal::DodajPunkt()
+{
+    score=score+1;
+    return score;
+}
 
 /*
  *         int n;

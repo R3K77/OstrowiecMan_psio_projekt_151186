@@ -42,3 +42,4 @@ void Drzwo::UstawGalaz(std::vector<Drzwo> drzewo)
             break;
     }
 }
+

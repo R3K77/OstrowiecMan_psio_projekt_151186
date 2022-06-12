@@ -56,27 +56,35 @@ SOURCES       = ..\gra_ostrowiecman\button.cpp \
 		..\gra_ostrowiecman\labelki.cpp \
 		..\gra_ostrowiecman\main.cpp \
 		..\gra_ostrowiecman\pasekstanu.cpp \
-		..\gra_ostrowiecman\settings.cpp 
+		..\gra_ostrowiecman\settings.cpp \
+		..\gra_ostrowiecman\tekstura.cpp \
+		..\gra_ostrowiecman\textbox.cpp 
 OBJECTS       = debug/button.o \
 		debug/drwal.o \
 		debug/drzwo.o \
 		debug/labelki.o \
 		debug/main.o \
 		debug/pasekstanu.o \
-		debug/settings.o
+		debug/settings.o \
+		debug/tekstura.o \
+		debug/textbox.o
 
 DIST          =  button.h \
 		drwal.h \
 		drzwo.h \
 		labelki.h \
 		pasekstanu.h \
-		settings.h ..\gra_ostrowiecman\button.cpp \
+		settings.h \
+		tekstura.h \
+		textbox.h ..\gra_ostrowiecman\button.cpp \
 		..\gra_ostrowiecman\drwal.cpp \
 		..\gra_ostrowiecman\drzwo.cpp \
 		..\gra_ostrowiecman\labelki.cpp \
 		..\gra_ostrowiecman\main.cpp \
 		..\gra_ostrowiecman\pasekstanu.cpp \
-		..\gra_ostrowiecman\settings.cpp
+		..\gra_ostrowiecman\settings.cpp \
+		..\gra_ostrowiecman\tekstura.cpp \
+		..\gra_ostrowiecman\textbox.cpp
 QMAKE_TARGET  = gra_ostrowiecman
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = gra_ostrowiecman.exe
@@ -99,7 +107,7 @@ dist:
 	$(ZIP) gra_ostrowiecman.zip $(SOURCES) $(DIST) ..\gra_ostrowiecman\gra_ostrowiecman.pro D:\qt\6.2.3\mingw_64\mkspecs\features\spec_pre.prf D:\qt\6.2.3\mingw_64\mkspecs\features\device_config.prf D:\qt\6.2.3\mingw_64\mkspecs\common\sanitize.conf D:\qt\6.2.3\mingw_64\mkspecs\common\gcc-base.conf D:\qt\6.2.3\mingw_64\mkspecs\common\g++-base.conf D:\qt\6.2.3\mingw_64\mkspecs\features\win32\windows_vulkan_sdk.prf D:\qt\6.2.3\mingw_64\mkspecs\common\windows-vulkan.conf D:\qt\6.2.3\mingw_64\mkspecs\common\g++-win32.conf D:\qt\6.2.3\mingw_64\mkspecs\common\windows-desktop.conf D:\qt\6.2.3\mingw_64\mkspecs\qconfig.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_ext_freetype.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_ext_libpng.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3danimation.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3danimation_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dcore.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dcore_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dextras.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dextras_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dinput.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dinput_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dlogic.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dlogic_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquick.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquick_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquickanimation.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquickextras.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquickextras_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquickinput.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquickinput_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquickrender.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquickrender_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquickscene2d.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3drender.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_3drender_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_activeqt.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_activeqt_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_axbase_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_axcontainer.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_axcontainer_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_axserver.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_axserver_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_bluetooth.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_bluetooth_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_bodymovin_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_charts.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_charts_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_chartsqml.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_chartsqml_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_concurrent.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_concurrent_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_core.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_core5compat.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_core5compat_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_core_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_datavisualization.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_datavisualization_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_dbus.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_dbus_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_designer.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_designer_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_designercomponents_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_entrypoint_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_fb_support_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_gui.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_gui_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_help.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_help_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labsanimation.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labsanimation_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labsqmlmodels.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labssettings.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labssettings_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labssharedimage.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labssharedimage_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_linguist.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_linguist_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_multimedia.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_multimedia_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_multimediaquick_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_multimediawidgets.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_network.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_network_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_networkauth.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_networkauth_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_nfc.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_nfc_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_opengl.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_opengl_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_openglwidgets.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_openglwidgets_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_packetprotocol_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_positioning.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_positioning_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_positioningquick.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_positioningquick_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_printsupport.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_printsupport_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qml.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qml_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmlcore.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmlcore_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmldebug_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmldom_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmllocalstorage.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmlmodels.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmlmodels_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmltest.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmltest_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmlworkerscript.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3d.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3d_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3dassetimport.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3dassetimport_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3dassetutils.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3dassetutils_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3deffects.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3deffects_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3dhelpers.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3dhelpers_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3diblbaker.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3diblbaker_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3dparticles.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3dparticles_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3druntimerender.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3druntimerender_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3dutils.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick3dutils_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quick_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickcontrolstestutilsprivate_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quicklayouts.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quicklayouts_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickparticles_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickshapes_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quicktemplates2.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quicktestutilsprivate_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quicktimeline.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quicktimeline_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickwidgets.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_remoteobjects.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_remoteobjects_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_remoteobjectsqml.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_remoteobjectsqml_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_repparser.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_repparser_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_scxml.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_scxml_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_scxmlqml.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_scxmlqml_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_sensors.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_sensors_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_sensorsquick.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_sensorsquick_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_serialbus.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_serialbus_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_serialport.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_serialport_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_shadertools.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_shadertools_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_sql.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_sql_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_statemachine.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_statemachine_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_statemachineqml.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_statemachineqml_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_svg.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_svg_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_svgwidgets.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_svgwidgets_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_testlib.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_testlib_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_tools_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_uiplugin.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_uitools.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_uitools_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_virtualkeyboard.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_webchannel.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_webchannel_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_websockets.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_websockets_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_webview.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_webview_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_webviewquick.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_webviewquick_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_widgets.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_widgets_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_xml.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_xml_private.pri D:\qt\6.2.3\mingw_64\mkspecs\modules\qt_lib_zlib_private.pri D:\qt\6.2.3\mingw_64\mkspecs\features\qt_functions.prf D:\qt\6.2.3\mingw_64\mkspecs\features\qt_config.prf D:\qt\6.2.3\mingw_64\mkspecs\win32-g++\qmake.conf D:\qt\6.2.3\mingw_64\mkspecs\features\spec_post.prf .qmake.stash D:\qt\6.2.3\mingw_64\mkspecs\features\exclusive_builds.prf D:\qt\6.2.3\mingw_64\mkspecs\features\toolchain.prf D:\qt\6.2.3\mingw_64\mkspecs\features\default_pre.prf D:\qt\6.2.3\mingw_64\mkspecs\features\win32\default_pre.prf D:\qt\6.2.3\mingw_64\mkspecs\features\resolve_config.prf D:\qt\6.2.3\mingw_64\mkspecs\features\exclusive_builds_post.prf D:\qt\6.2.3\mingw_64\mkspecs\features\default_post.prf D:\qt\6.2.3\mingw_64\mkspecs\features\build_pass.prf D:\qt\6.2.3\mingw_64\mkspecs\features\win32\console.prf D:\qt\6.2.3\mingw_64\mkspecs\features\qml_debug.prf D:\qt\6.2.3\mingw_64\mkspecs\features\entrypoint.prf D:\qt\6.2.3\mingw_64\mkspecs\features\precompile_header.prf D:\qt\6.2.3\mingw_64\mkspecs\features\warn_on.prf D:\qt\6.2.3\mingw_64\mkspecs\features\qmake_use.prf D:\qt\6.2.3\mingw_64\mkspecs\features\file_copies.prf D:\qt\6.2.3\mingw_64\mkspecs\features\testcase_targets.prf D:\qt\6.2.3\mingw_64\mkspecs\features\exceptions.prf D:\qt\6.2.3\mingw_64\mkspecs\features\yacc.prf D:\qt\6.2.3\mingw_64\mkspecs\features\lex.prf ..\gra_ostrowiecman\gra_ostrowiecman.pro      
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\button.o debug\drwal.o debug\drzwo.o debug\labelki.o debug\main.o debug\pasekstanu.o debug\settings.o
+	-$(DEL_FILE) debug\button.o debug\drwal.o debug\drzwo.o debug\labelki.o debug\main.o debug\pasekstanu.o debug\settings.o debug\tekstura.o debug\textbox.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -530,7 +538,9 @@ debug/main.o: ../gra_ostrowiecman/main.cpp C:/SFML-2.5.1/include/SFML/Window.hpp
 		../gra_ostrowiecman/drzwo.h \
 		../gra_ostrowiecman/drwal.h \
 		../gra_ostrowiecman/pasekstanu.h \
-		../gra_ostrowiecman/settings.h
+		../gra_ostrowiecman/settings.h \
+		../gra_ostrowiecman/textbox.h \
+		../gra_ostrowiecman/tekstura.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\gra_ostrowiecman\main.cpp
 
 debug/pasekstanu.o: ../gra_ostrowiecman/pasekstanu.cpp ../gra_ostrowiecman/pasekstanu.h \
@@ -690,6 +700,160 @@ debug/settings.o: ../gra_ostrowiecman/settings.cpp ../gra_ostrowiecman/settings.
 		../gra_ostrowiecman/drwal.h \
 		../gra_ostrowiecman/drzwo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\settings.o ..\gra_ostrowiecman\settings.cpp
+
+debug/tekstura.o: ../gra_ostrowiecman/tekstura.cpp ../gra_ostrowiecman/tekstura.h \
+		C:/SFML-2.5.1/include/SFML/Window.hpp \
+		C:/SFML-2.5.1/include/SFML/System.hpp \
+		C:/SFML-2.5.1/include/SFML/Config.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Clock.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Export.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Time.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Err.hpp \
+		C:/SFML-2.5.1/include/SFML/System/FileInputStream.hpp \
+		C:/SFML-2.5.1/include/SFML/System/InputStream.hpp \
+		C:/SFML-2.5.1/include/SFML/System/NonCopyable.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Lock.hpp \
+		C:/SFML-2.5.1/include/SFML/System/MemoryInputStream.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Mutex.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Sleep.hpp \
+		C:/SFML-2.5.1/include/SFML/System/String.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Utf.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Utf.inl \
+		C:/SFML-2.5.1/include/SFML/System/String.inl \
+		C:/SFML-2.5.1/include/SFML/System/Thread.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Thread.inl \
+		C:/SFML-2.5.1/include/SFML/System/ThreadLocal.hpp \
+		C:/SFML-2.5.1/include/SFML/System/ThreadLocalPtr.hpp \
+		C:/SFML-2.5.1/include/SFML/System/ThreadLocalPtr.inl \
+		C:/SFML-2.5.1/include/SFML/System/Vector2.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Vector2.inl \
+		C:/SFML-2.5.1/include/SFML/System/Vector3.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Vector3.inl \
+		C:/SFML-2.5.1/include/SFML/Window/Clipboard.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Export.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Context.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/GlResource.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/ContextSettings.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Cursor.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Event.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Joystick.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Keyboard.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Mouse.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Sensor.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Touch.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/VideoMode.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Window.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/WindowHandle.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/WindowStyle.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/BlendMode.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Export.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/CircleShape.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Shape.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Drawable.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/RenderStates.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Transform.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Rect.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Rect.inl \
+		C:/SFML-2.5.1/include/SFML/Graphics/Transformable.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/VertexArray.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Vertex.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Color.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/PrimitiveType.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/ConvexShape.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Font.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Glyph.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Texture.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Image.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/RectangleShape.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/RenderTarget.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/View.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/RenderTexture.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/RenderWindow.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Shader.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Glsl.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Glsl.inl \
+		C:/SFML-2.5.1/include/SFML/Graphics/Sprite.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Text.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\tekstura.o ..\gra_ostrowiecman\tekstura.cpp
+
+debug/textbox.o: ../gra_ostrowiecman/textbox.cpp ../gra_ostrowiecman/textbox.h \
+		C:/SFML-2.5.1/include/SFML/Window.hpp \
+		C:/SFML-2.5.1/include/SFML/System.hpp \
+		C:/SFML-2.5.1/include/SFML/Config.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Clock.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Export.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Time.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Err.hpp \
+		C:/SFML-2.5.1/include/SFML/System/FileInputStream.hpp \
+		C:/SFML-2.5.1/include/SFML/System/InputStream.hpp \
+		C:/SFML-2.5.1/include/SFML/System/NonCopyable.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Lock.hpp \
+		C:/SFML-2.5.1/include/SFML/System/MemoryInputStream.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Mutex.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Sleep.hpp \
+		C:/SFML-2.5.1/include/SFML/System/String.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Utf.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Utf.inl \
+		C:/SFML-2.5.1/include/SFML/System/String.inl \
+		C:/SFML-2.5.1/include/SFML/System/Thread.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Thread.inl \
+		C:/SFML-2.5.1/include/SFML/System/ThreadLocal.hpp \
+		C:/SFML-2.5.1/include/SFML/System/ThreadLocalPtr.hpp \
+		C:/SFML-2.5.1/include/SFML/System/ThreadLocalPtr.inl \
+		C:/SFML-2.5.1/include/SFML/System/Vector2.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Vector2.inl \
+		C:/SFML-2.5.1/include/SFML/System/Vector3.hpp \
+		C:/SFML-2.5.1/include/SFML/System/Vector3.inl \
+		C:/SFML-2.5.1/include/SFML/Window/Clipboard.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Export.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Context.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/GlResource.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/ContextSettings.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Cursor.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Event.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Joystick.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Keyboard.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Mouse.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Sensor.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Touch.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/VideoMode.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/Window.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/WindowHandle.hpp \
+		C:/SFML-2.5.1/include/SFML/Window/WindowStyle.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/BlendMode.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Export.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/CircleShape.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Shape.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Drawable.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/RenderStates.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Transform.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Rect.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Rect.inl \
+		C:/SFML-2.5.1/include/SFML/Graphics/Transformable.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/VertexArray.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Vertex.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Color.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/PrimitiveType.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/ConvexShape.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Font.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Glyph.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Texture.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Image.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/RectangleShape.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/RenderTarget.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/View.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/RenderTexture.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/RenderWindow.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Shader.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Glsl.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Glsl.inl \
+		C:/SFML-2.5.1/include/SFML/Graphics/Sprite.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/Text.hpp \
+		C:/SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\textbox.o ..\gra_ostrowiecman\textbox.cpp
 
 ####### Install
 

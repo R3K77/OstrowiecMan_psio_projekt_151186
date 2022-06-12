@@ -19,7 +19,9 @@ SOURCES += \
         labelki.cpp \
         main.cpp \
         pasekstanu.cpp \
-        settings.cpp
+        settings.cpp \
+        tekstura.cpp \
+        textbox.cpp
 
 HEADERS += \
     button.h \
@@ -27,4 +29,6 @@ HEADERS += \
     drzwo.h \
     labelki.h \
     pasekstanu.h \
-    settings.h
+    settings.h \
+    tekstura.h \
+    textbox.h

@@ -37,4 +37,13 @@ void Button::rysuj(int i, int j)
     }
 }
 
+Button::Button(const sf::Texture &texture, float scale_x, float scale_y)
+{
+    setTexture(texture);
+    setScale(scale_x,scale_y);
+    setPosition(2000,2000);
+}
+
+
+
 
