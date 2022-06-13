@@ -10,90 +10,7 @@
 #include "settings.h"
 #include "textbox.h"
 #include "tekstura.h"
-
-
-void ZnikanieMenu(Button& settings_tlo, Button &settings_tlo2, Button &settings_drwal, Button &settings_drwal2,
-                                  Button& settings_drzewo, Button& settings_drzewo2, Button& logo, Button& single, Button& multi, Labelki& background, Button& info)
-{
-    settings_tlo.Znikaj();
-    settings_tlo2.Znikaj();
-    settings_drwal.Znikaj();
-    settings_drwal2.Znikaj();
-    settings_drzewo.Znikaj();
-    settings_drzewo2.Znikaj();
-    logo.Znikaj();
-    single.Znikaj();
-    multi.Znikaj();
-    background.Znikaj();
-    info.Znikaj();
-}
-
-void UstawienieElementow(std::vector<Drzwo> &drzewo, std::vector<Drwal> &drwal, int ktory_drwal, float pos_x)
-{
-    drwal[ktory_drwal].score=0;
-    //ustawienie drzewa
-    for (int i=0; i<5; i++) {
-        drzewo[i].setPosition(pos_x,720-(i+2)*144);
-    }
-    //ustawienie drwala
-    drwal[ktory_drwal].setPosition(drzewo[ktory_drwal].getGlobalBounds().left-200,720-300);
-}
-
-void ZnikanieElementow(std::vector<Drwal> &drwal, std::vector<Drzwo> &branch,std::vector<Drzwo> &drzewo,std::vector<Drzwo> &branch2,std::vector<Drzwo> &drzewo2,
-                                            Button& single, Button& multi, Button &info, Button& logo, std::vector<sf::Text> &text, std::vector<Button> &end_button, std::vector<Button> &end, float okno_x)
-{
-    for (int i=0; i<2; i++) {
-        drwal[i].setPosition(3000,720);
-    }
-    for (auto &it : branch)
-    {
-        it.setPosition(5000,5000);
-    }
-    for (auto &it : drzewo)
-    {
-        it.setPosition(5000,5000);
-    }
-    for (auto &it : branch2)
-    {
-        it.setPosition(5000,5000);
-    }
-    for (auto &it : drzewo2)
-    {
-        it.setPosition(5000,5000);
-    }
-    single.setPosition(okno_x/2-single.getGlobalBounds().width/2,286);
-    multi.setPosition(okno_x/2-multi.getGlobalBounds().width/2,500);
-    logo.setPosition(okno_x/2-logo.getGlobalBounds().width/2,-50);
-    text[0].setPosition(2000,2000);
-    text[1].setPosition(2000,2000);
-    text[2].setPosition(2000,2000);
-    text[3].setPosition(2000,2000);
-    end[0].setPosition(3000,3000);
-    end_button[0].setPosition(3000,3000);
-    end[1].setPosition(3000,3000);
-    end_button[1].setPosition(3000,3000);
-    drwal[0].setScale(0.5,0.5);
-    drwal[1].setScale(0.5,0.5);
-    info.setPosition(30,-60);
-};
-
-void KolizjaZGalezia(std::vector<Drzwo>&branch, std::vector<Drwal> &drwal, int ktory_drwal, sf::Sound &smierc, bool &gra, std::vector<pasekstanu> &pasek_stanu, std::vector<sf::Text> &text, int i, int j,std::vector<Button>& end,  std::vector<Button>& end_button,
-                     std::vector<Drzwo> &drzewo, pasekstanu &paseczekuuu, pasekstanu &paseczek)
-{
-    for (auto &it: branch)
-    {
-        if(it.getGlobalBounds().intersects(drwal[ktory_drwal].getGlobalBounds()))
-        {
-            smierc.play();
-            gra=false;     //koniec paska
-            pasek_stanu[ktory_drwal].UsuwaniePaskow(drwal, ktory_drwal, text, i, j, end, end_button, drzewo);      //usuwanie elementow paska po smierci
-            paseczekuuu.UsuwaniePaska();
-            paseczek.UsuwaniePaska();
-        }
-    }
-}
-
-
+#include "funkcjevoid.h"
 
 //  OKNO INFORMACJI
 void tworcy()
@@ -172,29 +89,23 @@ int main() {
     pasekstanu paseczek2;            //licznik czasu dla drugiego gracza
     pasekstanu paseczekuuu;        //tło licznika czasu dla pierwszego gracza
     pasekstanu paseczekuuu2;      //tło licznika czasu dla drugiego gracza
-    int np=0;                                   //licznik galezi przy sprawdzaniu kolizji
+    int np=0;                                   //licznik galezi przy sprawdzaniu kolizji dla pierwszego gracza
+    int np2=0;                                   //licznik galezi przy sprawdzaniu kolizji dla drugiego gracza
+    sf::Clock timer;                    //timer dla gracza nr 1
+    sf::Clock timer2;               //timer dla gracza nr 2
 
     //MUZYKA
-    sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("uderzenie5.wav")){std::cerr << "Could not load sound" << std::endl;}
-    sf::SoundBuffer buffer_;
-    if (!buffer_.loadFromFile("uderzenie6.wav")){std::cerr << "Could not load sound" << std::endl;}
-    sf::SoundBuffer buffer1;
-    if (!buffer1.loadFromFile("klik.wav")){std::cerr << "Could not load sound" << std::endl;}
-    sf::SoundBuffer buffer3;
-    if (!buffer3.loadFromFile("smierc.wav")){std::cerr << "Could not load sound" << std::endl;}
-    sf::Sound uderzenie;
-    uderzenie.setBuffer(buffer);
-    sf::Sound uderzenie2;
-    uderzenie2.setBuffer(buffer_);
-    sf::Sound klikniecie;
-    klikniecie.setBuffer(buffer1);
-    sf::Sound smierc;
-    smierc.setBuffer(buffer3);
+    sf::SoundBuffer buffer;         if (!buffer.loadFromFile("uderzenie5.wav")){std::cerr << "Could not load sound" << std::endl;}
+    sf::SoundBuffer buffer_;       if (!buffer_.loadFromFile("uderzenie6.wav")){std::cerr << "Could not load sound" << std::endl;}
+    sf::SoundBuffer buffer1;        if (!buffer1.loadFromFile("klik.wav")){std::cerr << "Could not load sound" << std::endl;}
+    sf::SoundBuffer buffer3;        if (!buffer3.loadFromFile("smierc.wav")){std::cerr << "Could not load sound" << std::endl;}
+    sf::Sound uderzenie;            uderzenie.setBuffer(buffer);
+    sf::Sound uderzenie2;          uderzenie2.setBuffer(buffer_);
+    sf::Sound klikniecie;             klikniecie.setBuffer(buffer1);
+    sf::Sound smierc;                  smierc.setBuffer(buffer3);
 
     //WCZYTANIE CZCIONKI
-    sf::Font font;
-    if (!font.loadFromFile("BAHNSCHRIFT.TTF")){std::cerr << "Could not load font" << std::endl;}
+    sf::Font font;                  if (!font.loadFromFile("BAHNSCHRIFT.TTF")){std::cerr << "Could not load font" << std::endl;}
 
     //TWORZENIE OKNA
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Ostrowiec Man", sf::Style::Titlebar | sf::Style::Close);     //Titlebar oraz Close blokuje rozszerzanie okna oraz zmienianie jego wielkosci
@@ -203,44 +114,31 @@ int main() {
 
     //WCZYTYWANIE TEKSTUR:
     Tekstura ustawieniaa("ustawienia.png");     // szare (troche przezroczyste) tlo w ustawieniach
-    Tekstura skyy2("sky2.png");     //pierwsze tlo
-    Tekstura skyy("sky.png");         //drugie tlo
+    Tekstura skyy2("sky2.png"), skyy("sky.png");     //tla
+    Tekstura logo_("logo.png"), single_("singleplayer.png"), multi_("multiplayer.png"), end_button_("end_button.png"),info_("info.png");    //przyciski: logo, singleplayer, multiplayer, przycisk powrotu do menu po smierci, przycisk do otwarcia okna informacji(void tworcy())
+    Tekstura end_("grob.png");                 //grob pokazujacy sie po smierci
+    Tekstura drzewo_("wood.png"), drzewo2_("wood2.png");           //pierwsza tekstura drzewa (to z minecraft)
+    Tekstura branch_("branch.png");         //tekstura galezi
+    Tekstura drwal_("drwal_maciek.png"), drwal2_("drwal_kuba.png");               //tekstury obu drwali
+
     sf::Sprite sky;
     sky.setTexture(skyy2);
     sky.scale(double(window.getSize().x)/skyy.getSize().x,double(window.getSize().y)/skyy.getSize().y); //wyskalowanie tla do wielkosci okna
-    Tekstura logo_("logo.png");     //logo ostrowiecman
-    Tekstura single_("singleplayer.png");   //przycisk singleplayer
-    Tekstura multi_("multiplayer.png");     //przycisk multiplayer
-    Tekstura end_("grob.png");                 //grob pokazujacy sie po smierci
-    Tekstura end_button_("end_button.png");     //przycisk powrot do menu glownego
-    Tekstura info_("info.png");                 //przycisk do otwarcia okna informacje (void tworcy())
-    Tekstura drzewo_("wood.png");           //pierwsza tekstura drzewa (to z minecraft)
-    Tekstura drzewo2_("wood2.png");      //druga tekstura drzewa (to bardziej realne)
-    Tekstura branch_("branch.png");         //tekstura galezi
-    Tekstura drwal_("drwal_maciek.png");              //tekstury obu drwali
-    Tekstura drwal2_("drwal_kuba.png");               //tekstury obu drwali
 
-    //TWORZENIE PRZYCISKOW, nadawanie im tekstur i skalowanie
-    Button logo(logo_,0.5,0.5);                       ///logo ostrowiecmana w menu glownym
-    logo.setPosition(window.getSize().x/2-logo.getGlobalBounds().width/2,-50);
-    Button single(single_,0.6,0.6);                  ///przycisk singleplayer w menu glownym
-    Button multi(multi_, 0.6,0.6);                   ///przycisk multiplayer w menu glownym
-    Button info(info_,0.3,0.3);                       ///przycisk informacje w menu glownym
-    std::vector<Button> end_button;                                                                                                  ///
-    std::vector<Button> end;                                                                                                               ///Polozenie:
-    single.setPosition(window.getSize().x/2-single.getGlobalBounds().width/2,286);                ///przycisk singleplayer w menu glownym
-    multi.setPosition(window.getSize().x/2-multi.getGlobalBounds().width/2,500);                  ///przycisk multiplayer w menu glownym
-    info.setPosition(30,-60);                                                                                                              ///przycisk informacje w menu glownym
+    //TWORZENIE PRZYCISKOW, nadawanie im tekstur i skalowanie (glownie w w konstruktorze)
+    Button logo(logo_,0.5,0.5, window.getSize().x/2-282/2, -50);                       ///logo ostrowiecmana w menu glownym
+    Button single(single_,0.6,0.6,window.getSize().x/2-232.2/2, 286);                  ///przycisk singleplayer w menu glownym
+    Button multi(multi_, 0.6,0.6, window.getSize().x/2-232.2/2, 500);                   ///przycisk multiplayer w menu glownym
+    Button info(info_,0.3,0.3, 30,-60);                                                                                                     ///przycisk informacje w menu glownym
+    std::vector<Button> end_button;                                                                                                     //przycisk po smierci
+    std::vector<Button> end;                                                                                                               //grob po smierci
     for (int i=0; i<2; i++)
     {
         end.emplace_back();
-        end[i].setTexture(end_);                                                                ///
-        end[i].scale(0.2,0.2);                                                                       ///przyciski sluzace do powrotu do menu glownego
-        end[i].setPosition(2000,2000);                                                     ///po smierci gracza
+        end[i].setTexture(end_);                                                                ///grob po smierci
         end_button.emplace_back();
-        end_button[i].setTexture(end_button_);
-        end_button[i].scale(0.5,0.5);
-        end_button[i].setPosition(2000,2000);
+        end_button[i].setTexture(end_button_);                          ///przycisk sluzacy do powrotu
+        end_button[i].scale(2.3,2.3);                                              ///do menu glownego po smierci
     }
 
     //WCZYTYWANIE ELEMENTOW GRY I INNYCH
@@ -249,39 +147,27 @@ int main() {
     for (int i=0; i<6; i++) {
         drzewo.emplace_back();
         drzewo[i].setTexture(drzewo_);
-        drzewo[i].setPosition(3000,720);
-        drzewo[i].setScale(0.12,0.12);
     }
     std::vector<Drzwo> drzewo2;     //DRZEWO dla drugiego gracza
     for (int i=0; i<6; i++) {
         drzewo2.emplace_back();
         drzewo2[i].setTexture(drzewo_);
-        drzewo2[i].setPosition(3000,720);
-        drzewo2[i].setScale(0.12,0.12);
     }
     std::vector<Drzwo> branch;          //GALEZIE dla pierwszego gracza
     for (int i=0; i<10; i++) {
         branch.emplace_back();
         branch[i].setTexture(branch_);
-        branch[i].setPosition(5000,0);
-        branch[i].setScale(0.12,0.12);
     }
     std::vector<Drzwo> branch2;       //GALEZIE dla pierwszego gracza
     for (int i=0; i<10; i++) {
         branch2.emplace_back();
         branch2[i].setTexture(branch_);
-        branch2[i].setPosition(5000,0);
-        branch2[i].setScale(0.12,0.12);
     }
     std::vector<Drwal> drwal;           //DRWALE (dwoch graczy w jednym wektorze)
     for (int i=0; i<2; i++) {
         drwal.emplace_back();
         drwal[i].setTexture(drwal_);
-        drwal[i].setPosition(3000,720);
-        drwal[i].setScale(0.5,0.5);
-        drwal[i].setTextureRect(sf::IntRect(0,0,500,399));
     }
-
 
     //Tworzenie przyciskow do okna ustawien
     Button settings_tlo(skyy,0.07,0.07);
@@ -293,9 +179,6 @@ int main() {
     Button settings_drzewo(drzewo_,0.1,0.1);
     Button settings_drzewo2(drzewo2_,0.1,0.1);
 
-    //PASEK STANU (ODLICZANIE CZASU)
-    sf::Clock timer;    //timer dla gracza nr 1
-    sf::Clock timer2;   //timer dla gracza nr 2
     std::vector<pasekstanu> pasek_stanu;    //pasek stanu tworzony jest w wektorze, aby obslugiwal rowniez drugiego gracza
     for (int i=0; i<2; i++) {
         pasek_stanu.emplace_back();
@@ -303,7 +186,7 @@ int main() {
 
     //TEXT NA PRZEGRANA:
     std::vector<sf::Text> text;
-    for (int i=0; i<4; i++) {
+    for (int i=0; i<4; i++) {                   //po dwa textboxy na gracza
         text.emplace_back();
         text[i].setFont(font);
         text[i].setFillColor(sf::Color::White);
@@ -312,7 +195,6 @@ int main() {
         text[i].setString("TWOJ WYNIK TO:");
     }
 
-    // run the program as long as the window is open
     while (window.isOpen()) {
         elapsed+=timer.restart().asMicroseconds();            //ODLICZANIE CZASU W PASKU STANU DLA PIERWSZEGO GRACZA
         elapsed2+=timer2.restart().asMicroseconds();        //ODLICZANIE CZASU W PASKU STANU DLA DRUGIEGO GRACZA
@@ -323,11 +205,7 @@ int main() {
             if (event.type == sf::Event::MouseButtonPressed)
             {
                 sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
-                sf::FloatRect single_bound = single.getGlobalBounds();
-                sf::FloatRect multi_bound = multi.getGlobalBounds();
-                sf::FloatRect end0_bound = end_button[0].getGlobalBounds();
-                sf::FloatRect end1_bound = end_button[1].getGlobalBounds();
-                if(single.is_within(mouse_pos,single_bound)==true)
+                if(single.is_within(mouse_pos,single.getGlobalBounds())==true)
                 {
                     //GIERKA SINGLEPLAYER
                     klikniecie.play();  //dzwiek klikniecia przycisku
@@ -337,7 +215,7 @@ int main() {
                     pasek_stanu[0].delta=1.2;         //reset zwiekszania sie paska stanu
                     UstawienieElementow(drzewo, drwal, 0, 1280/2-60);           //Funkcja opisana na gorze maina
                 }
-                else if(multi.is_within(mouse_pos,multi_bound)==true)
+                else if(multi.is_within(mouse_pos,multi.getGlobalBounds())==true)
                 {
                     klikniecie.play();
                     //GIERKA MULTIPLAYER
@@ -348,87 +226,34 @@ int main() {
                     UstawienieElementow(drzewo, drwal, 0, 3*window.getSize().x/4-60);                 //Funkcja opisana na gorze maina
                     UstawienieElementow(drzewo2, drwal, 1, window.getSize().x/4-60);          //Funkcja opisana na gorze maina
                 }
-                else if(end[0].is_within(mouse_pos,end0_bound)==true)
+                else if(end[0].is_within(mouse_pos,end_button[0].getGlobalBounds())==true)
                 {
                     klikniecie.play();
                     ZnikanieElementow(drwal, branch,drzewo,branch2,drzewo2,single,multi, info,logo,text,end_button,  end, window.getSize().x);
                 }
-                else if(end[1].is_within(mouse_pos,end1_bound)==true)
+                else if(end[1].is_within(mouse_pos,end_button[1].getGlobalBounds())==true)
                 {
                     klikniecie.play();
                     ZnikanieElementow(drwal, branch,drzewo,branch2,drzewo2,single,multi, info, logo,text,end_button,  end, window.getSize().x);
                 }
-                else if(info.is_within(sf::Mouse::getPosition(window),info.getGlobalBounds())==true)
+                else if(info.is_within(mouse_pos,info.getGlobalBounds())==true)
                 {
                     tworcy();
                 }
-                else if(settings_tlo.is_within(sf::Mouse::getPosition(window),settings_tlo.getGlobalBounds())==true){
-                    sky.setTexture(skyy);
-                    klikniecie.play();
-                }
-                else if(settings_tlo2.is_within(sf::Mouse::getPosition(window),settings_tlo2.getGlobalBounds())==true){
-                    sky.setTexture(skyy2);
-                    klikniecie.play();
-                }
-                else if(settings_drwal.is_within(sf::Mouse::getPosition(window),settings_drwal.getGlobalBounds())==true){
-                    for (auto &it : drwal)
-                    {
-                        klikniecie.play();
-                        it.setTexture(drwal_);
-                    }
-                }
-                else if(settings_drwal2.is_within(sf::Mouse::getPosition(window),settings_drwal2.getGlobalBounds())==true){
-                    for (auto &it : drwal)
-                    {
-                        klikniecie.play();
-                        it.setTexture(drwal2_);
-                    }
-                }
-                else if(settings_drzewo.is_within(sf::Mouse::getPosition(window),settings_drzewo.getGlobalBounds())==true){
-                    for (auto &it : drzewo)
-                    {
-                        klikniecie.play();
-                        it.setTexture(drzewo_);
-                    }
-                    for (auto &it : drzewo2)
-                    {
-                        klikniecie.play();
-                        it.setTexture(drzewo_);
-                    }
-                }
-                else if(settings_drzewo2.is_within(sf::Mouse::getPosition(window),settings_drzewo2.getGlobalBounds())==true){
-                    for (auto &it : drzewo)
-                    {
-                        klikniecie.play();
-                        it.setTexture(drzewo2_);
-                    }
-                    for (auto &it : drzewo2)
-                    {
-                        klikniecie.play();
-                        it.setTexture(drzewo2_);
-                    }
-                }
+                // Zmiana tekstur w menu ustawien pod klawiszem Escape:
+                 Ustawienia_ZmianaTekstury(settings_drzewo, mouse_pos, drzewo, drzewo2, drzewo_, klikniecie);
+                 Ustawienia_ZmianaTekstury(settings_drzewo2, mouse_pos, drzewo, drzewo2, drzewo2_, klikniecie);
+                 Ustawienia_ZmianaTekstury(settings_tlo, mouse_pos, sky, skyy, klikniecie);
+                 Ustawienia_ZmianaTekstury(settings_tlo2, mouse_pos, sky, skyy2, klikniecie);
+                 Ustawienia_ZmianaTekstury(settings_drwal, mouse_pos, drwal, drwal_, klikniecie);
+                 Ustawienia_ZmianaTekstury(settings_drwal2, mouse_pos, drwal, drwal2_, klikniecie);
             }
-
-            //ZMIANA TEKSTURY PRZY UDERZENIU DRWALA
-            if (event.type == sf::Event::KeyPressed)
+            if (event.type == sf::Event::KeyPressed)                //ZMIANA TEKSTURY PRZY UDERZENIU DRWALA
             {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                {
-                    if (drwal[0].getGlobalBounds().left<window.getSize().x){
-                        drwal[0].setTextureRect(sf::IntRect(500, 0, 500, 399));     //przesuwa teksture na uderzenie (o 500pikseli w prawo)
-                    }
-                }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-                {
-                    if (drwal[1].getGlobalBounds().left<window.getSize().x){
-                        drwal[1].setTextureRect(sf::IntRect(500,0,500,399));        //przesuwa teksture na uderzenie (o 500pikseli w prawo)
-                    }
-                }
+                drwal[0].TeksturaNaUderzenie(sf::Keyboard::Left, sf::Keyboard::Right, window.getSize().x);
+                drwal[1].TeksturaNaUderzenie(sf::Keyboard::A, sf::Keyboard::D, window.getSize().x);
             }
-
-            //STEROWANIE
-            if (event.type == sf::Event::KeyReleased)
+            if (event.type == sf::Event::KeyReleased)           //STEROWANIE
             {
                 if(drwal[0].getGlobalBounds().left<window.getSize().x)      //zabezpieczenie przed ruchem poza ekranem
                 {
@@ -437,20 +262,9 @@ int main() {
                             uderzenie.play();
                         //pasek
                         gra = true;
-                        elapsed=0;
-                        pasek_stanu[0].ZmniejszCzas();
+                        pasek_stanu[0].ZmniejszCzas(elapsed);        //reset czasu na liczniku po uderzeniu oraz ograniczenie limitu maksymalnego czasu do osiagniecia
                         ///uderzenia i pojawianie sie galezi:
-                        drwal[0].setTextureRect(sf::IntRect(0, 0, 500, 399));       //powrot z animacji uderzenie
-                        drwal[0].UderzenieLeft(drzewo);
-                        branch[np].UstawGalaz(drzewo);
-                        if(np==10)
-                        { np=0;}
-                        else
-                        { np=np+1;}
-                        for (auto &it: branch)
-                        {
-                            it.WDol(it.getGlobalBounds().left, it.getGlobalBounds().top);
-                        }
+                        drwal[0].UderzenieLeft(drzewo, branch, np);
                         //KOLIZJE Z GALEZIA DLA PIERWSZEGO GRACZA
                         KolizjaZGalezia(branch, drwal, 0, smierc, gra, pasek_stanu, text, 0,1, end, end_button, drzewo, paseczekuuu, paseczek);
                         drwal[0].DodajPunkt();
@@ -459,20 +273,9 @@ int main() {
                     {
                        uderzenie.play();
                         gra = true;
-                        elapsed=0;
-                        pasek_stanu[0].ZmniejszCzas();
+                        pasek_stanu[0].ZmniejszCzas(elapsed);                  //reset czasu na liczniku po uderzeniu oraz ograniczenie limitu maksymalnego czasu do osiagniecia
                         ///uderzenia i pojawianie sie galezi:
-                        drwal[0].setTextureRect(sf::IntRect(0, 0, 500, 399));   //powrot z animacji uderzenie
-                        drwal[0].UderzenieRight(drzewo);
-                        branch[np].UstawGalaz(drzewo);
-                        if(np==10)
-                        { np=0;}
-                        else
-                        { np=np+1;}
-                        for (auto &it: branch)
-                        {
-                            it.WDol(it.getGlobalBounds().left, it.getGlobalBounds().top);
-                        }
+                        drwal[0].UderzenieRight(drzewo, branch, np);
                         //KOLIZJE Z GALEZIA DLA PIERWSZEGO GRACZA
                         KolizjaZGalezia(branch, drwal, 0, smierc, gra, pasek_stanu, text, 0,1, end, end_button, drzewo, paseczekuuu, paseczek);
                         drwal[0].DodajPunkt();
@@ -485,45 +288,20 @@ int main() {
                     {
                             uderzenie2.play();
                         gra2 = true;
-                        elapsed2=0;
-                        pasek_stanu[1].ZmniejszCzas();
+                        pasek_stanu[1].ZmniejszCzas(elapsed2);
                         //uderzenia i resp galezi
-                        drwal[1].setTextureRect(sf::IntRect(0, 0, 500, 399));   //powrot z animacji uderzenie
-                        drwal[1].UderzenieA(drzewo2);
-                        branch2[np].UstawGalaz(drzewo2);
-                        if(np==10)
-                        { np=0;}
-                        else
-                        { np=np+1;}
-                        for (auto &it: branch2)
-                        {
-                            it.WDol(it.getGlobalBounds().left, it.getGlobalBounds().top);
-                        }
-                        //KOLIZJE Z GALEZIA DLA DRUGIEGO GRACZA
-                        KolizjaZGalezia(branch2, drwal, 1, smierc, gra2, pasek_stanu, text, 2,3, end, end_button, drzewo2, paseczekuuu2, paseczek2);
+                        drwal[1].UderzenieLeft(drzewo2, branch2, np2);
+                        KolizjaZGalezia(branch2, drwal, 1, smierc, gra2, pasek_stanu, text, 2,3, end, end_button, drzewo2, paseczekuuu2, paseczek2);    //KOLIZJE Z GALEZIA DLA DRUGIEGO GRACZA
                         drwal[1].DodajPunkt();
                     }
                     if (event.key.code == sf::Keyboard::D)
                     {
-                            uderzenie2.play();
-                        //pasek
-                        gra2 = true;
-                        elapsed2=0;
-                        pasek_stanu[1].ZmniejszCzas();
+                        uderzenie2.play();
+                        gra2 = true;        //gra jest kontynuowana
+                        pasek_stanu[1].ZmniejszCzas(elapsed2);          //reset czasu na liczniku po uderzeniu oraz zmniejszenie limitu do osiagniecia
                         //uderzenia i resp galezi
-                        drwal[1].setTextureRect(sf::IntRect(0, 0, 500, 399));
-                        drwal[1].UderzenieD(drzewo2);
-                        branch2[np].UstawGalaz(drzewo2);
-                        if(np==10)
-                        { np=0;}
-                        else
-                        { np=np+1;}
-                        for (auto &it: branch2)
-                        {
-                            it.WDol(it.getGlobalBounds().left, it.getGlobalBounds().top);
-                        }
-                        //KOLIZJE Z GALEZIA DLA DRUGIEGO GRACZA
-                        KolizjaZGalezia(branch2, drwal, 1, smierc, gra2, pasek_stanu, text, 2,3, end, end_button, drzewo2, paseczekuuu2, paseczek2);
+                        drwal[1].UderzenieRight(drzewo2, branch2, np2);
+                        KolizjaZGalezia(branch2, drwal, 1, smierc, gra2, pasek_stanu, text, 2,3, end, end_button, drzewo2, paseczekuuu2, paseczek2);    //KOLIZJE Z GALEZIA DLA DRUGIEGO GRACZA
                         drwal[1].DodajPunkt();
                     }
                 }
@@ -557,44 +335,9 @@ int main() {
                 }
             }
         }
+        PaskiOdliczajaceCzas(gra, drwal, paseczek, paseczekuuu, pasek_stanu, 0, drzewo, text, 0, 1, end,end_button,elapsed, smierc, window.getSize().x, window.getSize().y);
+        PaskiOdliczajaceCzas(gra2, drwal, paseczek2, paseczekuuu2, pasek_stanu, 1, drzewo2, text, 2, 3, end,end_button,elapsed2, smierc, 250, window.getSize().y);
 
-        if (gra==true)          //Ustawienie pasku stanu
-        {
-            paseczek.PasekTlo(drzewo,0);                    // ustawienie dwoch paskow w tle, aby wybrany pasek
-            paseczekuuu.PasekTlo2(drzewo,0);            // mial lepszy efekt zmniejszania sie
-
-            pasek_stanu[0].setPosition(drzewo[0].getGlobalBounds().left+drzewo[0].getGlobalBounds().width+20,10);
-            if(pasek_stanu[0].getGlobalBounds().width<=200)
-            {
-                pasek_stanu[0].FunkcjonalnoscPaska(elapsed, text, 0, 1, drwal, 0, window.getSize().x, window.getSize().y);
-            }
-            else    //koniec gry
-            {
-                gra = false; //koniec paska
-                pasek_stanu[0].UsuwaniePaskow(drwal, 0, text, 0, 1, end, end_button, drzewo);   //usuwanie elementow paska po smierci
-                paseczek.UsuwaniePaska();
-                paseczekuuu.UsuwaniePaska();
-                smierc.play();
-            }
-        }
-        if (gra2==true)
-        {
-            paseczek2.PasekTlo(drzewo2,0);                  // ustawienie dwoch paskow w tle, aby wybrany pasek
-            paseczekuuu2.PasekTlo2(drzewo2,0);          // mial lepszy efekt zmniejszania sie
-            pasek_stanu[1].setPosition(drzewo2[0].getGlobalBounds().left+drzewo2[0].getGlobalBounds().width+20,10);
-            if(pasek_stanu[1].getGlobalBounds().width<=200)
-            {
-                pasek_stanu[1].FunkcjonalnoscPaska(elapsed2, text, 2, 3, drwal, 1, 250, window.getSize().y);
-            }
-            else    //koniec gry
-            {
-                smierc.play();
-                gra2=false;     //koniec paska
-                pasek_stanu[1].UsuwaniePaskow(drwal, 1, text, 2, 3, end, end_button, drzewo2);      //usuwanie elementow paska po smierci
-                paseczekuuu2.UsuwaniePaska();
-                paseczek2.UsuwaniePaska();
-            }
-        }
         // RYSOWANIE WSZYSTKI ELEMENTOW:
         window.draw(sky);                                                        //tlo
         window.draw(logo);                                                       //logo ostrowiecman (na gorze menu glownego)
@@ -605,16 +348,16 @@ int main() {
         for (auto &it : drzewo2){window.draw(it);}                  //pnie drzewa dla gracza drugiego
         for (auto &it : branch){window.draw(it);}                       //galezie dla gracza pierwszego
         for (auto &it : branch2){window.draw(it);}                      //galezie dla gracza drugiego
-        for (auto &it : end){window.draw(it);}
-        for (auto &it : end_button){window.draw(it);}
-        for (auto &it : drwal){window.draw(it);}
-        window.draw(paseczek);
+        for (auto &it : end){window.draw(it);}                          //groby po smierci
+        for (auto &it : end_button){window.draw(it);}                   //przycisk powrotu do menu
+        for (auto &it : drwal){window.draw(it);}                    //no i drwale <3
+        window.draw(paseczek);                          //ponizej rysowanie paska odliczajacego czas
         window.draw(paseczek2);
         window.draw(paseczekuuu);
         window.draw(paseczekuuu2);
         for (auto &it : pasek_stanu){window.draw(it);}
-        for (auto &it : text){window.draw(it);}
-        window.draw(background);
+        for (auto &it : text){window.draw(it);}         //textboxy
+        window.draw(background);            //Ponizej rysowanie okna ustawien
         window.draw(settings_tlo);
         window.draw(settings_tlo2);
         window.draw(settings_drwal);

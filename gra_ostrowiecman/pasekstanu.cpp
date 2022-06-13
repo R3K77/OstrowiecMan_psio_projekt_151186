@@ -58,10 +58,12 @@ void pasekstanu::UsuwaniePaskow(std::vector<Drwal>&drwal, int ktory_drwal, std::
             drzewo[0].getGlobalBounds().top-140);
 }
 
-void pasekstanu::ZmniejszCzas()
+double pasekstanu::ZmniejszCzas(double &elapsed)
 {
     if (delta<=6)
     {
         delta=delta+0.01;
     }
+    elapsed=0;
+    return elapsed;
 }

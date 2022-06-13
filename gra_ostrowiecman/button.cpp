@@ -2,7 +2,8 @@
 
 Button::Button()
 {
-
+    scale(0.2,0.2);
+    setPosition(2000,2000);
 };
 
 bool Button::is_within(sf::Vector2i pos, sf::FloatRect bound)
@@ -45,5 +46,10 @@ Button::Button(const sf::Texture &texture, float scale_x, float scale_y)
 }
 
 
-
+Button::Button(const sf::Texture &texture, float scale_x, float scale_y, float pos_x, float pos_y)
+{
+    setTexture(texture);
+    setScale(scale_x,scale_y);
+    setPosition(pos_x,pos_y);
+}
 

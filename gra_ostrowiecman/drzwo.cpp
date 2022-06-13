@@ -5,7 +5,8 @@
 
 Drzwo::Drzwo()
 {
-
+    setPosition(5000,0);
+    setScale(0.12,0.12);
 }
 
 void Drzwo::WDol(double x, double y)

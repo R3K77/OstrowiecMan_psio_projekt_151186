@@ -16,6 +16,7 @@ SOURCES += \
         button.cpp \
         drwal.cpp \
         drzwo.cpp \
+        funkcjevoid.cpp \
         labelki.cpp \
         main.cpp \
         pasekstanu.cpp \
@@ -27,7 +28,7 @@ HEADERS += \
     button.h \
     drwal.h \
     drzwo.h \
-    labelki.h \
+    funkcjevoid.h \
     pasekstanu.h \
     settings.h \
     tekstura.h \

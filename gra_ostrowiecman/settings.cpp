@@ -41,3 +41,29 @@ void Settings::odbijaj()
                 b=-std::abs(b);
             }
 }
+
+//void Settings::UstawTeksture(sf::Vector2i mouse_pos  )
+//{
+//    if(settings_tlo.is_within(mouse_pos,settings_tlo.getGlobalBounds())==true){
+//        sky.setTexture(skyy);
+//        klikniecie.play();
+//    }
+//    else if(settings_tlo2.is_within(mouse_pos,settings_tlo2.getGlobalBounds())==true){
+//        sky.setTexture(skyy2);
+//        klikniecie.play();
+//    }
+//    else if(settings_drwal.is_within(mouse_pos,settings_drwal.getGlobalBounds())==true){
+//        for (auto &it : drwal)
+//        {
+//            klikniecie.play();
+//            it.setTexture(drwal_);
+//        }
+//    }
+//    else if(settings_drwal2.is_within(sf::Mouse::getPosition(window),settings_drwal2.getGlobalBounds())==true){
+//        for (auto &it : drwal)
+//        {
+//            klikniecie.play();
+//            it.setTexture(drwal2_);
+//        }
+//    }
+//}

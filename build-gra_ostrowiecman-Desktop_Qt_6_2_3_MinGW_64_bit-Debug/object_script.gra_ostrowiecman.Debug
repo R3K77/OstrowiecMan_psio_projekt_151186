@@ -1,7 +1,7 @@
-debug/FunkcjeVoid.o
 debug/button.o
 debug/drwal.o
 debug/drzwo.o
+debug/funkcjevoid.o
 debug/labelki.o
 debug/main.o
 debug/pasekstanu.o
