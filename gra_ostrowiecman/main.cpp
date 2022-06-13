@@ -77,12 +77,29 @@ void ZnikanieElementow(std::vector<Drwal> &drwal, std::vector<Drzwo> &branch,std
     info.setPosition(30,-60);
 };
 
+void KolizjaZGalezia(std::vector<Drzwo>&branch, std::vector<Drwal> &drwal, int ktory_drwal, sf::Sound &smierc, bool &gra, std::vector<pasekstanu> &pasek_stanu, std::vector<sf::Text> &text, int i, int j,std::vector<Button>& end,  std::vector<Button>& end_button,
+                     std::vector<Drzwo> &drzewo, pasekstanu &paseczekuuu, pasekstanu &paseczek)
+{
+    for (auto &it: branch)
+    {
+        if(it.getGlobalBounds().intersects(drwal[ktory_drwal].getGlobalBounds()))
+        {
+            smierc.play();
+            gra=false;     //koniec paska
+            pasek_stanu[ktory_drwal].UsuwaniePaskow(drwal, ktory_drwal, text, i, j, end, end_button, drzewo);      //usuwanie elementow paska po smierci
+            paseczekuuu.UsuwaniePaska();
+            paseczek.UsuwaniePaska();
+        }
+    }
+}
+
+
 
 //  OKNO INFORMACJI
 void tworcy()
 {
     // create the window
-        sf::RenderWindow window2(sf::VideoMode(800, 600), "OstrowiecMan - informacje");
+        sf::RenderWindow window2(sf::VideoMode(800, 600), "OstrowiecMan - informacje", sf::Style::Titlebar | sf::Style::Close);     //Titlebar oraz Close blokuje rozszerzanie okna oraz zmienianie jego wielkosci
 
     // WCZYTUJEMY CZCIONKE
         sf::Font font;
@@ -122,11 +139,9 @@ void tworcy()
         while (window2.isOpen()) {
             sf::Event event;
             while (window2.pollEvent(event)) {
-                if (event.type == sf::Event::Closed)
-                    window2.close();
+                if (event.type == sf::Event::Closed){window2.close();}
             }
 
-            // clear the window with black color
             window2.clear(sf::Color::Black);
 
         //ANIMACJA LOGA POLIBUDY W TLE
@@ -161,21 +176,13 @@ int main() {
 
     //MUZYKA
     sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("uderzenie5.wav")){
-        std::cerr << "Could not load sound" << std::endl;
-    }
+    if (!buffer.loadFromFile("uderzenie5.wav")){std::cerr << "Could not load sound" << std::endl;}
     sf::SoundBuffer buffer_;
-    if (!buffer_.loadFromFile("uderzenie6.wav")){
-        std::cerr << "Could not load sound" << std::endl;
-    }
+    if (!buffer_.loadFromFile("uderzenie6.wav")){std::cerr << "Could not load sound" << std::endl;}
     sf::SoundBuffer buffer1;
-    if (!buffer1.loadFromFile("klik.wav")){
-        std::cerr << "Could not load sound" << std::endl;
-    }
+    if (!buffer1.loadFromFile("klik.wav")){std::cerr << "Could not load sound" << std::endl;}
     sf::SoundBuffer buffer3;
-    if (!buffer3.loadFromFile("smierc.wav")){
-        std::cerr << "Could not load sound" << std::endl;
-    }
+    if (!buffer3.loadFromFile("smierc.wav")){std::cerr << "Could not load sound" << std::endl;}
     sf::Sound uderzenie;
     uderzenie.setBuffer(buffer);
     sf::Sound uderzenie2;
@@ -187,13 +194,10 @@ int main() {
 
     //WCZYTANIE CZCIONKI
     sf::Font font;
-    if (!font.loadFromFile("BAHNSCHRIFT.TTF"))
-    {
-        std::cerr << "Could not load font" << std::endl;
-    }
+    if (!font.loadFromFile("BAHNSCHRIFT.TTF")){std::cerr << "Could not load font" << std::endl;}
 
     //TWORZENIE OKNA
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Ostrowiec Man", sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Ostrowiec Man", sf::Style::Titlebar | sf::Style::Close);     //Titlebar oraz Close blokuje rozszerzanie okna oraz zmienianie jego wielkosci
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);   //limit klatek na sekunde ustawiony na 60
 
@@ -223,16 +227,16 @@ int main() {
     Button multi(multi_, 0.6,0.6);                   ///przycisk multiplayer w menu glownym
     Button info(info_,0.3,0.3);                       ///przycisk informacje w menu glownym
     std::vector<Button> end_button;                                                                                                  ///
-    std::vector<Button> end;                                                                                                               ///
-    single.setPosition(window.getSize().x/2-single.getGlobalBounds().width/2,286);                ///   przyciski sluzace do powrotu do menu glownego
-    multi.setPosition(window.getSize().x/2-multi.getGlobalBounds().width/2,500);                  ///   po smierci gracza
-    info.setPosition(30,-60);                                                                                                              ///
+    std::vector<Button> end;                                                                                                               ///Polozenie:
+    single.setPosition(window.getSize().x/2-single.getGlobalBounds().width/2,286);                ///przycisk singleplayer w menu glownym
+    multi.setPosition(window.getSize().x/2-multi.getGlobalBounds().width/2,500);                  ///przycisk multiplayer w menu glownym
+    info.setPosition(30,-60);                                                                                                              ///przycisk informacje w menu glownym
     for (int i=0; i<2; i++)
     {
         end.emplace_back();
-        end[i].setTexture(end_);
-        end[i].scale(0.2,0.2);
-        end[i].setPosition(2000,2000);
+        end[i].setTexture(end_);                                                                ///
+        end[i].scale(0.2,0.2);                                                                       ///przyciski sluzace do powrotu do menu glownego
+        end[i].setPosition(2000,2000);                                                     ///po smierci gracza
         end_button.emplace_back();
         end_button[i].setTexture(end_button_);
         end_button[i].scale(0.5,0.5);
@@ -312,7 +316,6 @@ int main() {
     while (window.isOpen()) {
         elapsed+=timer.restart().asMicroseconds();            //ODLICZANIE CZASU W PASKU STANU DLA PIERWSZEGO GRACZA
         elapsed2+=timer2.restart().asMicroseconds();        //ODLICZANIE CZASU W PASKU STANU DLA DRUGIEGO GRACZA
-
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed){
@@ -449,18 +452,7 @@ int main() {
                             it.WDol(it.getGlobalBounds().left, it.getGlobalBounds().top);
                         }
                         //KOLIZJE Z GALEZIA DLA PIERWSZEGO GRACZA
-                        for (auto &it: branch)
-                        {
-                            if(it.getGlobalBounds().intersects(drwal[0].getGlobalBounds()))
-                            {
-                                gra = false; //koniec paska
-                                pasek_stanu[0].UsuwaniePaskow(drwal, 0, text, 0, 1, end, end_button, drzewo);       //usuwanie elementow paska po smierci
-                                paseczek.UsuwaniePaska();
-                                paseczekuuu.UsuwaniePaska();
-                                smierc.play();
-                            }
-                        }
-
+                        KolizjaZGalezia(branch, drwal, 0, smierc, gra, pasek_stanu, text, 0,1, end, end_button, drzewo, paseczekuuu, paseczek);
                         drwal[0].DodajPunkt();
                     }
                     if (event.key.code == sf::Keyboard::Right)
@@ -482,17 +474,7 @@ int main() {
                             it.WDol(it.getGlobalBounds().left, it.getGlobalBounds().top);
                         }
                         //KOLIZJE Z GALEZIA DLA PIERWSZEGO GRACZA
-                        for (auto &it: branch)
-                        {
-                            if(it.getGlobalBounds().intersects(drwal[0].getGlobalBounds()))
-                            {
-                                gra = false; //koniec paska
-                                pasek_stanu[0].UsuwaniePaskow(drwal, 0, text, 0, 1, end, end_button, drzewo);       //usuwanie elementow paska po smierci
-                                paseczek.UsuwaniePaska();
-                                paseczekuuu.UsuwaniePaska();
-                                smierc.play();
-                            }
-                        }
+                        KolizjaZGalezia(branch, drwal, 0, smierc, gra, pasek_stanu, text, 0,1, end, end_button, drzewo, paseczekuuu, paseczek);
                         drwal[0].DodajPunkt();
                     }
                 }
@@ -518,17 +500,7 @@ int main() {
                             it.WDol(it.getGlobalBounds().left, it.getGlobalBounds().top);
                         }
                         //KOLIZJE Z GALEZIA DLA DRUGIEGO GRACZA
-                        for (auto &it: branch2)
-                        {
-                            if(it.getGlobalBounds().intersects(drwal[1].getGlobalBounds()))
-                            {
-                                smierc.play();
-                                gra2=false;     //koniec paska
-                                pasek_stanu[1].UsuwaniePaskow(drwal, 1, text, 2, 3, end, end_button, drzewo2);      //usuwanie elementow paska po smierci
-                                paseczekuuu2.UsuwaniePaska();
-                                paseczek2.UsuwaniePaska();
-                            }
-                        }
+                        KolizjaZGalezia(branch2, drwal, 1, smierc, gra2, pasek_stanu, text, 2,3, end, end_button, drzewo2, paseczekuuu2, paseczek2);
                         drwal[1].DodajPunkt();
                     }
                     if (event.key.code == sf::Keyboard::D)
@@ -551,17 +523,7 @@ int main() {
                             it.WDol(it.getGlobalBounds().left, it.getGlobalBounds().top);
                         }
                         //KOLIZJE Z GALEZIA DLA DRUGIEGO GRACZA
-                        for (auto &it: branch2)
-                        {
-                            if(it.getGlobalBounds().intersects(drwal[1].getGlobalBounds()))
-                            {
-                                smierc.play();
-                                gra2=false;     //koniec paska
-                                pasek_stanu[1].UsuwaniePaskow(drwal, 1, text, 2, 3, end, end_button, drzewo2);      //usuwanie elementow paska po smierci
-                                paseczekuuu2.UsuwaniePaska();
-                                paseczek2.UsuwaniePaska();
-                            }
-                        }
+                        KolizjaZGalezia(branch2, drwal, 1, smierc, gra2, pasek_stanu, text, 2,3, end, end_button, drzewo2, paseczekuuu2, paseczek2);
                         drwal[1].DodajPunkt();
                     }
                 }
@@ -634,45 +596,24 @@ int main() {
             }
         }
         // RYSOWANIE WSZYSTKI ELEMENTOW:
-        window.draw(sky);
-        window.draw(logo);
-        window.draw(single);
-        window.draw(multi);
-        window.draw(info);
-        for (auto &it : drzewo) {
-            window.draw(it);
-        }
-        for (auto &it : drzewo2) {
-            window.draw(it);
-        }
-        for (auto &it : branch) {
-            window.draw(it);
-        }
-        for (auto &it : branch2) {
-            window.draw(it);
-        }
-        for (auto &it : end)
-        {
-            window.draw(it);
-        }
-        for (auto &it : end_button)
-        {
-            window.draw(it);
-        }
-        for (auto &it : drwal) {
-            window.draw(it);
-        }
+        window.draw(sky);                                                        //tlo
+        window.draw(logo);                                                       //logo ostrowiecman (na gorze menu glownego)
+        window.draw(single);                                                    //przycisk singleplayer
+        window.draw(multi);                                                     //przycisk multiplayer
+        window.draw(info);                                                       //przycisk informacje (menu glowne po lewej na gorze)
+        for (auto &it : drzewo){window.draw(it);}                     //pnie drzewa dla gracza pierwszego
+        for (auto &it : drzewo2){window.draw(it);}                  //pnie drzewa dla gracza drugiego
+        for (auto &it : branch){window.draw(it);}                       //galezie dla gracza pierwszego
+        for (auto &it : branch2){window.draw(it);}                      //galezie dla gracza drugiego
+        for (auto &it : end){window.draw(it);}
+        for (auto &it : end_button){window.draw(it);}
+        for (auto &it : drwal){window.draw(it);}
         window.draw(paseczek);
         window.draw(paseczek2);
         window.draw(paseczekuuu);
         window.draw(paseczekuuu2);
-        for (auto &it : pasek_stanu){
-            window.draw(it);
-        }
-        for (auto &it : text)
-        {
-            window.draw(it);
-        }
+        for (auto &it : pasek_stanu){window.draw(it);}
+        for (auto &it : text){window.draw(it);}
         window.draw(background);
         window.draw(settings_tlo);
         window.draw(settings_tlo2);

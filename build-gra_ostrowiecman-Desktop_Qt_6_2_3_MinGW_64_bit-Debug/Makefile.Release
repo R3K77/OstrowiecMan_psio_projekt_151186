@@ -207,7 +207,8 @@ release/button.o: ../gra_ostrowiecman/button.cpp ../gra_ostrowiecman/button.h \
 		C:/SFML-2.5.1/include/SFML/Graphics/Sprite.hpp \
 		C:/SFML-2.5.1/include/SFML/Graphics/Text.hpp \
 		C:/SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp \
-		../gra_ostrowiecman/labelki.h
+		../gra_ostrowiecman/labelki.h \
+		../gra_ostrowiecman/tekstura.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\button.o ..\gra_ostrowiecman\button.cpp
 
 release/drwal.o: ../gra_ostrowiecman/drwal.cpp ../gra_ostrowiecman/drwal.h \
@@ -439,7 +440,8 @@ release/labelki.o: ../gra_ostrowiecman/labelki.cpp ../gra_ostrowiecman/labelki.h
 		C:/SFML-2.5.1/include/SFML/Graphics/Glsl.inl \
 		C:/SFML-2.5.1/include/SFML/Graphics/Sprite.hpp \
 		C:/SFML-2.5.1/include/SFML/Graphics/Text.hpp \
-		C:/SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp
+		C:/SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp \
+		../gra_ostrowiecman/tekstura.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\labelki.o ..\gra_ostrowiecman\labelki.cpp
 
 release/main.o: ../gra_ostrowiecman/main.cpp C:/SFML-2.5.1/include/SFML/Window.hpp \
@@ -535,12 +537,12 @@ release/main.o: ../gra_ostrowiecman/main.cpp C:/SFML-2.5.1/include/SFML/Window.h
 		C:/SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp \
 		../gra_ostrowiecman/button.h \
 		../gra_ostrowiecman/labelki.h \
+		../gra_ostrowiecman/tekstura.h \
 		../gra_ostrowiecman/drzwo.h \
 		../gra_ostrowiecman/drwal.h \
 		../gra_ostrowiecman/pasekstanu.h \
 		../gra_ostrowiecman/settings.h \
-		../gra_ostrowiecman/textbox.h \
-		../gra_ostrowiecman/tekstura.h
+		../gra_ostrowiecman/textbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\gra_ostrowiecman\main.cpp
 
 release/pasekstanu.o: ../gra_ostrowiecman/pasekstanu.cpp ../gra_ostrowiecman/pasekstanu.h \
@@ -618,7 +620,11 @@ release/pasekstanu.o: ../gra_ostrowiecman/pasekstanu.cpp ../gra_ostrowiecman/pas
 		C:/SFML-2.5.1/include/SFML/Graphics/Sprite.hpp \
 		C:/SFML-2.5.1/include/SFML/Graphics/Text.hpp \
 		C:/SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp \
-		../gra_ostrowiecman/labelki.h
+		../gra_ostrowiecman/labelki.h \
+		../gra_ostrowiecman/tekstura.h \
+		../gra_ostrowiecman/drzwo.h \
+		../gra_ostrowiecman/drwal.h \
+		../gra_ostrowiecman/button.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\pasekstanu.o ..\gra_ostrowiecman\pasekstanu.cpp
 
 release/settings.o: ../gra_ostrowiecman/settings.cpp ../gra_ostrowiecman/settings.h \
@@ -697,6 +703,7 @@ release/settings.o: ../gra_ostrowiecman/settings.cpp ../gra_ostrowiecman/setting
 		C:/SFML-2.5.1/include/SFML/Graphics/Sprite.hpp \
 		C:/SFML-2.5.1/include/SFML/Graphics/Text.hpp \
 		C:/SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp \
+		../gra_ostrowiecman/tekstura.h \
 		../gra_ostrowiecman/drwal.h \
 		../gra_ostrowiecman/drzwo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\settings.o ..\gra_ostrowiecman\settings.cpp
