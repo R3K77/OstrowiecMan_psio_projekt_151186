@@ -33,4 +33,12 @@ void Ustawienia_ZmianaTekstury(Button& settings_drwal, sf::Vector2i mouse_pos, s
 
 void Ustawienia_ZmianaTekstury(Button& settings_drzewo, sf::Vector2i mouse_pos, std::vector<Drzwo> &drzewo, std::vector<Drzwo> &drzewo2, Tekstura &drzewo_, sf::Sound &klikniecie);
 
+void menu_glowne(std::vector<Drzwo> &drzewo, std::vector<Drzwo> &drzewo2, std::vector<Drzwo> &branch, std::vector<Drzwo> &branch2, std::vector<Drwal> &drwal, sf::Sprite &sky);
+
+void tworcy();
+
+void gra_singleplayer(std::vector<Drzwo> &drzewo, std::vector<Drzwo> &drzewo2, std::vector<Drzwo> &branch, std::vector<Drzwo> &branch2, std::vector<Drwal> &drwal, sf::Sprite &sky);
+
+void gra_multiplayer(std::vector<Drzwo> &drzewo, std::vector<Drzwo> &drzewo2, std::vector<Drzwo> &branch, std::vector<Drzwo> &branch2, std::vector<Drwal> &drwal, sf::Sprite &sky);
+
 #endif // FUNKCJEVOID_H
